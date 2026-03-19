@@ -1,0 +1,13 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Draft PDFs (only resume.pdf should be committed)
+*_draft.pdf
+*_old.pdf
+*_backup.pdf
+
+# Docker
+*.log
