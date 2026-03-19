@@ -1,0 +1,7 @@
+services:
+  cv-pdf:
+    container_name: cv-pdf
+    build: .
+    ports:
+      - "80:80"
+    restart: unless-stopped
