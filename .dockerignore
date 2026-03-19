@@ -1,0 +1,15 @@
+# Versioning & Git
+.git
+.github
+.gitignore
+
+# Docker & CI/CD assets
+Dockerfile
+docker-compose.yml
+.dockerignore
+version.txt
+LICENSE
+
+# OS generated files
+.DS_Store
+Thumbs.db
