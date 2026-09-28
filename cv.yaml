@@ -7,6 +7,8 @@
 # Dates     `"YYYY-MM"`, always quoted. `end: null` means "ongoing".
 # Entries   Every list entry has a unique `id` and a `tags` list. Variants and
 #           per-offer builds select and order entries by `id` and `tags`.
+# Tags      `core`: kept in every variant. `extra`: hidden from the default
+#           (`full`) build, shown again by a variant naming one of its tags.
 # Bullets   `bullets` is a list of `{fr, en}` items, most important first.
 # Private   Phone number lives in the git-ignored `private.yaml`, loaded only
 #           with `--input private=true` (see README, "Private data").
@@ -50,17 +52,94 @@ experience:
       - fr: 111 tâches livrées en 5 mois, dont 92 % sur Jack, l'outil de gestion des interventions
         en: Delivered 111 tasks in 5 months, 92% of them on Jack, the repair-management tool
 
+# Figures below were read from GitHub on 2026-09-27.
 projects:
+  - id: astra-ops
+    name: Astra-ops
+    url: https://github.com/Enoal-Fauchille-Bolle/Astra-ops
+    role: {fr: Homelab GitOps — projet personnel, en: GitOps homelab — personal project}
+    start: "2026-01"
+    end: null
+    tech: [Proxmox VE, K3s, ArgoCD, Helm, Docker Compose, Traefik, Infisical, Restic, GitHub Actions]
+    tags: [core, devops, platform]
+    bullets:
+      - fr: Conçu et exploité un homelab de plus de 30 services, du serveur Proxmox VE au cluster K3s déployé en GitOps par ArgoCD
+        en: TODO(#10)
+      - fr: Automatisé l'exploitation avec des secrets synchronisés depuis Infisical, des mises à jour par Renovate et des runners GitHub Actions auto-hébergés
+        en: TODO(#10)
+      - fr: Mis en place des sauvegardes 3-2-1 chiffrées (RPO ≤ 24 h, RTO de 30 min à 2 h), avec des restaurations testées
+        en: TODO(#10)
+
+  - id: skylode
+    name: Skylode
+    url: https://github.com/Enoal-Fauchille-Bolle/Skylode
+    role: {fr: Jeu en terminal — projet personnel, en: Terminal game — personal project}
+    start: "2026-06"
+    end: null
+    tech: [Rust, Ratatui, Crossterm, GitHub Actions, crates.io]
+    tags: [rust, devops, release]
+    bullets:
+      - fr: Développé en Rust un jeu incrémental en terminal, avec un workspace Cargo qui sépare les règles de l'interface
+        en: TODO(#10)
+      - fr: Fiabilisé les sauvegardes des joueurs, versionnées et migrées au chargement, écrites de façon atomique et signées par HMAC
+        en: TODO(#10)
+      - fr: Automatisé les releases, avec des binaires Linux, Windows et macOS dotés d'attestations de provenance signées et publiés sur crates.io
+        en: TODO(#10)
+
+  - id: area
+    name: AREA
+    url: https://github.com/Enoal-Fauchille-Bolle/AREA
+    role: {fr: Back-end et CI — projet Epitech en équipe de 5, en: Back-end and CI — Epitech team project of 5}
+    start: "2025-09"
+    end: "2025-11"
+    tech: [TypeScript, NestJS, PostgreSQL, TypeORM, Docker, GitHub Actions]
+    tags: [backend, typescript, team]
+    bullets:
+      - fr: Développé le serveur NestJS d'une plateforme d'automatisation façon Zapier, avec OAuth2 (Google, GitHub, Discord, Spotify…) et des déclencheurs cron, webhook et polling
+        en: TODO(#10)
+      - fr: Mis en place la CI GitHub Actions du projet
+        en: TODO(#10)
+      - fr: Livré en 7 semaines, 2e contributeur sur 5 (123 commits)
+        en: TODO(#10)
+
   - id: termoxide
     name: TermOxide
     url: https://github.com/TermOxide/TermOxide
-    role: {fr: Crate de gestion des événements, en: Event-handling crate}
-    start: "2026-06"
+    role: {fr: Mainteneur — projet de fin d'études Epitech en équipe de 5, en: Maintainer — Epitech capstone project, team of 5}
+    start: "2026-02"
     end: null
-    tech: [Rust, crossterm]
-    tags: [rust, systems, team]
+    tech: [Rust, crossterm, CodeRabbit]
+    tags: [core, rust, team]
     bullets:
-      - fr: TODO(#7)
+      - fr: Conçu la crate des événements clavier et souris d'un framework TUI réactif en Rust, avec un flux d'événements typé et une lecture non bloquante
+        en: TODO(#10)
+      - fr: Mis en place l'outillage qualité de l'équipe, avec des hooks git (format, lint, messages de commit) et la revue automatisée par CodeRabbit
+        en: TODO(#10)
+
+  - id: zappy
+    name: Zappy
+    url: https://github.com/Enoal-Fauchille-Bolle/Zappy
+    role: {fr: Serveur en C — projet Epitech en équipe de 6, en: C server — Epitech team project of 6}
+    start: "2025-05"
+    end: "2025-06"
+    tech: [C, C++, Python]
+    tags: [extra, systems, network, team]
+    bullets:
+      - fr: Développé le serveur en C d'un jeu de stratégie multijoueur en réseau, 1er contributeur avec 382 commits sur 757
+        en: TODO(#10)
+
+  - id: r-type
+    name: R-Type
+    url: https://github.com/MatthieuGA/R_TYPE_J.A.M.E.S.
+    role: {fr: Réseau — projet Epitech en équipe de 5, en: Networking — Epitech team project of 5}
+    start: "2025-11"
+    end: "2026-01"
+    tech: [C++, SFML, UDP]
+    tags: [extra, systems, network, team]
+    bullets:
+      - fr: Spécifié et documenté le protocole UDP binaire d'un moteur de jeu multijoueur à architecture ECS
+        en: TODO(#10)
+      - fr: Développé la gestion des entrées côté client et un mode solo avec serveur intégré
         en: TODO(#10)
 
 education:
