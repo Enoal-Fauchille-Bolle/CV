@@ -123,19 +123,20 @@
   v(3pt)
 }
 
-// One dated entry: bold title, right-aligned dates, subtitle line, bullets, and
-// an optional tech stack line (plain selectable words, no icons — ATS-safe).
+// One dated entry: bold title, subtitle and place on the same line, right-aligned
+// dates, bullets, and an optional tech stack line (plain selectable words, no
+// icons — ATS-safe).
 #let entry(title, subtitle, dates, place: none, tech: (), bullets: ()) = {
   block(width: 100%, breakable: false, above: 6pt)[
+    // Typst spaces blocks by 1.2em by default; keep an entry's lines tight.
+    #set par(spacing: 0.6em)
+    #set block(spacing: 0.6em)
     #grid(columns: (1fr, auto), column-gutter: 8pt,
-      text(weight: "bold")[#title],
+      [#text(weight: "bold")[#title]#if subtitle != none {
+        text(fill: rgb("#333333"))[ · #subtitle#if place != none [ · #place]]
+      }],
       text(fill: rgb("#555555"))[#dates],
     )
-    #if subtitle != none {
-      set text(fill: rgb("#333333"))
-      [#subtitle#if place != none [ · #place]]
-      linebreak()
-    }
     #if bullets.len() > 0 {
       set text(size: 9.5pt)
       list(..bullets.map(b => T(b)))
@@ -240,23 +241,21 @@
 // ----------------------------------------------------------------------------
 // Skills
 // ----------------------------------------------------------------------------
+// Spoken languages are one more line of this section, not a section of their own.
 #let sk = data.at("skills", default: ()).filter(keep)
-#if sk.len() > 0 {
+#let langs = data.at("languages", default: ()).filter(keep)
+#if sk.len() > 0 or langs.len() > 0 {
   section(L.skills)
   for s in sk {
     block(above: 4pt)[
       #text(weight: "bold")[#T(s.group) : ]#s.at("items", default: ()).join(", ")
     ]
   }
-}
-
-// ----------------------------------------------------------------------------
-// Languages
-// ----------------------------------------------------------------------------
-#let langs = data.at("languages", default: ()).filter(keep)
-#if langs.len() > 0 {
-  section(L.languages)
-  langs.map(l => [#text(weight: "bold")[#T(l.name)] — #T(l.level)]).join(linebreak())
+  if langs.len() > 0 {
+    block(above: 4pt)[
+      #text(weight: "bold")[#L.languages : ]#langs.map(l => [#T(l.name) (#T(l.level))]).join(", ")
+    ]
+  }
 }
 
 // ----------------------------------------------------------------------------
