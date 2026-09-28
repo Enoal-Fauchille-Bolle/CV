@@ -42,13 +42,13 @@
     summary: "Profil", experience: "Expérience", projects: "Projets",
     education: "Formation", skills: "Compétences", languages: "Langues",
     certifications: "Certifications", volunteering: "Bénévolat",
-    present: "présent", remote: "à distance",
+    present: "présent", remote: "à distance", colon: " : ",
   ),
   en: (
     summary: "Profile", experience: "Experience", projects: "Projects",
     education: "Education", skills: "Skills", languages: "Languages",
     certifications: "Certifications", volunteering: "Volunteering",
-    present: "present", remote: "remote",
+    present: "present", remote: "remote", colon: ": ",
   ),
 ).at(lang, default: (:))
 
@@ -247,12 +247,12 @@
   section(L.skills)
   for s in sk {
     block(above: 4pt)[
-      #text(weight: "bold")[#T(s.group) : ]#s.at("items", default: ()).join(", ")
+      #text(weight: "bold")[#T(s.group)#L.colon]#s.at("items", default: ()).join(", ")
     ]
   }
   if langs.len() > 0 {
     block(above: 4pt)[
-      #text(weight: "bold")[#L.languages : ]#langs.map(l => [#T(l.name) (#T(l.level))]).join(", ")
+      #text(weight: "bold")[#L.languages#L.colon]#langs.map(l => [#T(l.name) (#T(l.level))]).join(", ")
     ]
   }
 }
