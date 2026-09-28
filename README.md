@@ -4,102 +4,36 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Enoal-Fauchille-Bolle/CV)](https://github.com/Enoal-Fauchille-Bolle/CV/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-> My résumé, containerized and served over Nginx. Automatically built, versioned, and published to GHCR on every release.
+> My résumé as code: written in YAML, typeset with Typst, containerized and
+> served over Nginx, versioned and published to GHCR on every release.
 
 ---
 
 ## 📖 About
 
-This repository exists as a **DevOps learning exercise** as much as a CV hosting solution.
+This repository exists as a **DevOps learning exercise** as much as a CV.
 
-The goal was simple: instead of manually uploading a PDF somewhere and updating a link every time, I wanted to apply proper **release engineering** to something as humble as a résumé. That means:
+Instead of editing a PDF by hand and re-uploading it, the résumé gets the same
+treatment as software:
 
-- A **Docker image** embedding the PDF, served by a minimal Nginx on Alpine.
-- A **GitHub Actions CI/CD pipeline** that automatically builds and publishes the image to GHCR on every annotated Git tag.
-- A **versioned release** on every push, so any downstream system can track updates automatically.
-
-This image is pulled by a **K3s homelab cluster** managed through GitOps (ArgoCD), which detects new image versions and updates the running container automatically.
-
----
-
-## 🏗️ Stack
-
-| Layer | Technology |
-|---|---|
-| Web server | [Nginx](https://nginx.org/) on [Alpine Linux](https://alpinelinux.org/) |
-| Container registry | [GitHub Container Registry (GHCR)](https://ghcr.io) |
-| CI/CD | [GitHub Actions](https://github.com/features/actions) |
-| PDF editor | [Canva](https://www.canva.com/) |
+- **Content as data** — every entry lives in [`src/cv.yaml`](./src/cv.yaml), in
+  French and English, tagged for per-offer variants.
+- **Reproducible build** — a [Typst](https://typst.app/) template renders it
+  through a pinned container, so the PDF is identical on any machine.
+- **Release engineering** — an annotated Git tag builds a Docker image, pushes
+  it to GHCR and creates a GitHub Release.
+- **GitOps deployment** — a **K3s homelab cluster** managed by ArgoCD pulls the
+  image and updates the running container automatically.
 
 ---
 
-## 🚀 Usage
+## 🚀 Quick start
 
-### Pull and run the image locally
-
-```bash
-docker run -p 8080:80 ghcr.io/enoal-fauchille-bolle/cv:latest
-```
-
-Then open [http://localhost:8080](http://localhost:8080) — the PDF will be served directly.
-
-### Build locally with Docker Compose
-
-```bash
-docker compose up --build
-```
-
----
-
-## 📦 Release workflow
-
-New versions are published automatically via GitHub Actions when an **annotated Git tag** is pushed:
-
-```bash
-# 1. Commit your changes
-git add resume.pdf
-git commit -m "Update resume"
-
-# 2. Create an annotated tag
-git tag -a v2.4.0 -m "Add new experience"
-
-# 3. Push everything
-git push origin main
-git push origin v2.4.0
-```
-
-The CI will then:
-1. Build the Docker image.
-2. Push it to GHCR with both the version tag and `latest`.
-3. Create a GitHub Release with auto-generated release notes and the PDF attached.
-
----
-
-## 📁 Project structure
-
-```
-.
-├── .github/
-│   └── workflows/
-│       └── docker-publish.yml   # CI/CD pipeline
-├── Dockerfile                   # Nginx Alpine image
-├── docker-compose.yml           # Local development
-├── nginx.conf                   # Nginx configuration
-├── resume.pdf                   # The résumé itself
-└── LICENSE
-```
-
----
-
-## 🛠️ Build the PDF
-
-The CV is written in [Typst](https://typst.app/) and rendered through a pinned
-Typst container, so the output is identical everywhere — no local Typst install
-needed, only Docker.
+Only Docker and `make` are needed — no local Typst install.
 
 ```bash
 make          # public PDFs (FR + EN, no photo) into dist/
-make private  # local build with photo + phone (needs photo.jpg and private.yaml)
+make private  # local build with photo + phone (see "Private data")
 make clean    # remove dist/
 ```
 
@@ -107,21 +41,56 @@ A single `make` on a fresh clone produces `dist/cv-fr.pdf` and `dist/cv-en.pdf`:
 tagged PDF/UA-1 files with hyphenation off, so ATS keyword matching stays intact.
 Generated PDFs live in `dist/` and are git-ignored.
 
-Template inputs (Typst `--input` flags, all optional):
+---
+
+## ⚙️ How it works
+
+```
+src/cv.yaml ──▶ src/cv.typ ──▶ typst compile (pinned container) ──▶ dist/*.pdf
+  content        template        Makefile
+```
+
+The template takes optional Typst `--input` flags:
 
 | Input | Values | Effect |
 |---|---|---|
 | `lang` | `fr` (default), `en` | language of the `{fr, en}` text |
 | `photo` | `true` (default), `false` | show or hide the header photo |
-| `private` | `false` (default), `true` | load `private.yaml` (phone) |
+| `private` | `false` (default), `true` | load `src/private.yaml` (phone) |
 | `variant` | `full` (default), `<tag>` | keep `core` entries plus those tagged `<tag>` |
+
+The `cv.yaml` schema is documented in its header comment: `{fr, en}` text,
+`"YYYY-MM"` dates, and an `id` plus `tags` on every entry for variant selection.
+
+---
+
+## 🔒 Private data
+
+The repository is public, so `src/cv.yaml` only holds what may be published:
+name, `contact@enoal.fr`, website, GitHub, LinkedIn and city. No driving licence.
+
+Two things stay off the public repo and are git-ignored:
+
+- **Phone** — lives in `src/private.yaml` (copy `src/private.example.yaml`).
+- **Photo** — lives in `src/photo.jpg`.
+
+```bash
+cp src/private.example.yaml src/private.yaml   # then fill in the real number
+# drop your photo.jpg into src/, then:
+make private                                   # dist/cv-*-private.pdf
+```
+
+The public build (`make`) never sets `private=true` or `photo=true`, so it reads
+neither file: no phone, no photo — safe for CI, the Release and enoal.fr. With
+`private=true` but no file, compilation fails instead of silently shipping a PDF
+without the number.
 
 ---
 
 ## 🔤 Fonts
 
-Fonts are committed under `fonts/` so builds are identical on any machine, and
-Typst loads them with `--font-path fonts` (wired into the `Makefile`):
+Fonts are committed under `src/fonts/` so builds are identical on any machine,
+and Typst loads them with `--font-path src/fonts` (wired into the `Makefile`):
 
 | Use | Font | Licence |
 |---|---|---|
@@ -136,33 +105,74 @@ same designer, so the look stays close.
 
 ---
 
-## 🔒 Private data
+## 📦 Deployment
 
-The repository is public, so `cv.yaml` only holds what may be published:
-name, `contact@enoal.fr`, website, GitHub, LinkedIn and city. No driving licence.
+> **Transitional:** the image and the Release still ship the hand-made
+> `deploy/resume.pdf`. Switching them to the Typst-built PDF is tracked in
+> issues #16–#20.
 
-Two things stay off the public repo and are git-ignored:
-
-- **Phone** — lives in `private.yaml` (copy `private.example.yaml`).
-- **Photo** — lives in `photo.jpg`.
+### Run the image
 
 ```bash
-cp private.example.yaml private.yaml   # then fill in the real number
-# drop your photo.jpg next to it, then:
-make private                           # dist/cv-*-private.pdf, with photo + phone
+docker run -p 8080:80 ghcr.io/enoal-fauchille-bolle/cv:latest
 ```
 
-The public build (`make`) never sets `private=true` or `photo=true`, so it reads
-neither file: no phone, no photo — safe for CI, the Release and enoal.fr. With
-`private=true` but no file, compilation fails instead of silently shipping a PDF
-without the number.
+Then open [http://localhost:8080](http://localhost:8080) — the PDF is served
+directly. To build and run it locally instead:
+
+```bash
+docker compose -f deploy/docker-compose.yml up --build
+```
+
+### Release
+
+Pushing an **annotated Git tag** triggers the GitHub Actions pipeline:
+
+```bash
+git tag -a v2.4.0 -m "Add new experience"
+git push origin main
+git push origin v2.4.0
+```
+
+The CI then:
+1. Builds the Docker image from `deploy/`.
+2. Pushes it to GHCR with both the version tag and `latest`.
+3. Creates a GitHub Release with auto-generated notes and the PDF attached.
 
 ---
 
-## 🗂️ `cv.yaml` schema
+## 🏗️ Stack
 
-The schema is documented in the header comment of [`cv.yaml`](./cv.yaml):
-`{fr, en}` text, `"YYYY-MM"` dates, and an `id` plus `tags` on every entry for variant selection.
+| Layer | Technology |
+|---|---|
+| Typesetting | [Typst](https://typst.app/) (pinned container image) |
+| Build | [GNU Make](https://www.gnu.org/software/make/) + [Docker](https://www.docker.com/) |
+| Web server | [Nginx](https://nginx.org/) on [Alpine Linux](https://alpinelinux.org/) |
+| Container registry | [GitHub Container Registry (GHCR)](https://ghcr.io) |
+| CI/CD | [GitHub Actions](https://github.com/features/actions) |
+
+---
+
+## 📁 Project structure
+
+```
+.
+├── .github/workflows/
+│   └── docker-publish.yml     # CI/CD: image + Release on every tag
+├── src/                       # everything the PDF is built from
+│   ├── cv.typ                 # Typst template
+│   ├── cv.yaml                # CV content (FR + EN), schema in its header
+│   ├── private.example.yaml   # template for the git-ignored private.yaml
+│   └── fonts/                 # Dosis + Hanken Grotesk (OFL)
+├── deploy/                    # everything the served image is built from
+│   ├── Dockerfile             # Nginx Alpine image
+│   ├── nginx.conf             # serves the PDF at /
+│   ├── docker-compose.yml     # local run
+│   └── resume.pdf             # hand-made PDF, until issues #16–#20
+├── Makefile                   # reproducible PDF build into dist/
+├── CONTRIBUTING.md            # editing rules (one page, commits…)
+└── LICENSE
+```
 
 ---
 
