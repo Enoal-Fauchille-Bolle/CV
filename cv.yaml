@@ -188,13 +188,26 @@ education:
   - id: epitech
     school: Epitech Nantes
     degree:
-      fr: Expert en technologies de l'information — RNCP niveau 7
+      fr: Programme Grande École — Expert en technologies de l'information, RNCP niveau 7
       en: Master's-level degree in information technology — RNCP level 7
     location: {fr: "Nantes, France", en: "Nantes, France"}
-    start: "2023-09" # TODO(#4): confirm month
-    end: "2028-08" # TODO(#4): confirm month
+    start: "2023-10"
+    end: "2028-08"
     tags: [core]
     bullets: []
+
+  - id: roskilde
+    school: Roskilde University
+    degree:
+      fr: Échange de 4e année — Master en informatique (Computer Science)
+      en: 4th-year exchange — Master's in Computer Science
+    location: {fr: "Roskilde, Danemark", en: "Roskilde, Denmark"}
+    start: "2026-09"
+    end: "2027-06"
+    tags: [core]
+    bullets:
+      - fr: "Cours de master en anglais : sécurité informatique, consommation énergétique, expérience utilisateur, et un projet avancé de 15 ECTS"
+        en: TODO(#10)
 
 skills:
   - id: languages
@@ -203,18 +216,20 @@ skills:
     tags: [core]
 
 languages:
+  - id: french
+    name: {fr: Français, en: French}
+    level: {fr: Langue maternelle, en: Native}
+    tags: [core]
   - id: english
     name: {fr: Anglais, en: English}
-    level: {fr: TOEIC 840, en: TOEIC 840}
+    level:
+      fr: B2 (année de master en anglais à Roskilde)
+      en: B2 (Master's year taught in English at Roskilde)
     tags: [core]
 
-certifications:
-  - id: toeic
-    name: TOEIC Listening & Reading — 840
-    issuer: ETS
-    date: "2026-01" # TODO(#8): real month
-    url: null
-    tags: [core]
+# Each entry: id, name, issuer, date, url, tags. None to show yet: the 840
+# English score comes from Tepitech, Epitech's internal test, not an ETS TOEIC.
+certifications: []
 
 volunteering:
   - id: devfest
