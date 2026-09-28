@@ -1,0 +1,270 @@
+// cv.typ — single-column CV rendered from cv.yaml.
+//
+// Build (fonts live in ./fonts, so --font-path is required):
+//   typst compile --font-path fonts cv.typ cv-fr.pdf
+//   typst compile --font-path fonts --input lang=en cv.typ cv-en.pdf
+//   typst compile --font-path fonts --input photo=true cv.typ cv-photo.pdf
+//   typst compile --font-path fonts --input private=true cv.typ cv-private.pdf
+//   typst compile --font-path fonts --input variant=backend cv.typ cv-backend.pdf
+//
+// Inputs (sys.inputs values are always strings):
+//   lang     "fr" (default) | "en"        — language of {fr, en} text.
+//   photo    "true" (default) | "false"   — show/hide the header photo.
+//   private  "false" (default) | "true"   — load the git-ignored private.yaml (phone).
+//   variant  "full" (default) | <tag>     — keep entries tagged "core" plus <tag>.
+
+// ----------------------------------------------------------------------------
+// Inputs & data
+// ----------------------------------------------------------------------------
+#let data = yaml("cv.yaml")
+#let lang = sys.inputs.at("lang", default: "fr")
+#let show-photo = sys.inputs.at("photo", default: "true") != "false"
+#let variant = sys.inputs.at("variant", default: "full")
+#let priv = if sys.inputs.at("private", default: "false") == "true" {
+  yaml("private.yaml")
+} else { (:) }
+
+// ----------------------------------------------------------------------------
+// Localisation helpers
+// ----------------------------------------------------------------------------
+// Pick the current language out of a {fr, en} mapping; pass plain values through.
+#let t(x) = if type(x) == dictionary and lang in x { x.at(lang) } else { x }
+
+// Flag unfilled placeholders so a provisional value never ships unnoticed.
+#let T(x) = {
+  let s = t(x)
+  if type(s) == str and s.starts-with("TODO") {
+    text(fill: red, style: "italic")[#s]
+  } else { s }
+}
+
+// Section labels and fixed words.
+#let L = (
+  fr: (
+    summary: "Profil", experience: "Expérience", projects: "Projets",
+    education: "Formation", skills: "Compétences", languages: "Langues",
+    certifications: "Certifications", volunteering: "Bénévolat",
+    present: "présent", remote: "à distance",
+  ),
+  en: (
+    summary: "Profile", experience: "Experience", projects: "Projects",
+    education: "Education", skills: "Skills", languages: "Languages",
+    certifications: "Certifications", volunteering: "Volunteering",
+    present: "present", remote: "remote",
+  ),
+).at(lang, default: (:))
+
+// Short month names, indexed 1..12.
+#let months = (
+  fr: ("janv.", "févr.", "mars", "avr.", "mai", "juin",
+       "juil.", "août", "sept.", "oct.", "nov.", "déc."),
+  en: ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
+).at(lang, default: ("", "", "", "", "", "", "", "", "", "", "", ""))
+
+// "YYYY-MM" -> "juil. 2024" ; none (YAML null) -> "présent"/"present".
+#let fmt-date(d) = {
+  if d == none { return L.present }
+  let parts = str(d).split("-")
+  let year = parts.at(0)
+  let m = int(parts.at(1, default: "1"))
+  months.at(m - 1) + " " + year
+}
+#let date-range(start, end) = fmt-date(start) + " – " + fmt-date(end)
+
+// Keep an entry for the current variant: "full" keeps all, otherwise keep
+// "core" entries plus those carrying the requested tag.
+#let keep(e) = {
+  let tags = e.at("tags", default: ())
+  variant == "full" or ("core" in tags) or (variant in tags)
+}
+
+// ----------------------------------------------------------------------------
+// Document & page setup (ATS-friendly, PDF/UA compatible)
+// ----------------------------------------------------------------------------
+#set document(
+  title: data.header.name + " — CV",
+  author: data.header.name,
+  keywords: ("CV", "résumé", "Enoal Fauchille-Bolle"),
+)
+#set text(
+  lang: lang,
+  font: ("Hanken Grotesk", "Libertinus Serif"),
+  size: 10pt,
+  hyphenate: false,          // never split keywords like "TypeScript"
+)
+#set par(justify: false, leading: 0.6em)
+#set page(paper: "a4", margin: (x: 1.5cm, y: 1.4cm))
+
+#let accent = rgb("#1f6f8b")
+#show link: set text(fill: accent)
+
+// Section heading: uppercase title in Dosis with an accent rule underneath.
+#let section(title) = {
+  v(6pt)
+  block(width: 100%, breakable: false)[
+    #text(font: "Dosis", weight: "bold", size: 12pt, fill: accent, tracking: 0.5pt)[
+      #upper(title)
+    ]
+    #v(-4pt)
+    #line(length: 100%, stroke: 0.6pt + accent)
+  ]
+  v(3pt)
+}
+
+// One dated entry: bold title, right-aligned dates, subtitle line, bullets.
+#let entry(title, subtitle, dates, place: none, bullets: ()) = {
+  block(width: 100%, breakable: false, above: 6pt)[
+    #grid(columns: (1fr, auto), column-gutter: 8pt,
+      text(weight: "bold")[#title],
+      text(fill: rgb("#555555"))[#dates],
+    )
+    #if subtitle != none {
+      set text(fill: rgb("#333333"))
+      [#subtitle#if place != none [ · #place]]
+      linebreak()
+    }
+    #if bullets.len() > 0 {
+      set text(size: 9.5pt)
+      list(..bullets.map(b => T(b)))
+    }
+  ]
+}
+
+// ----------------------------------------------------------------------------
+// Header
+// ----------------------------------------------------------------------------
+#let hd = data.header
+#let contact = {
+  set text(size: 9pt)
+  let items = (
+    link("mailto:" + hd.email)[#hd.email],
+  )
+  if "phone" in priv { items.push(priv.phone) }
+  items.push(link(hd.website)[#hd.website.replace("https://", "")])
+  items.push(link("https://github.com/" + hd.github)[github.com/#hd.github])
+  items.push(link("https://linkedin.com/in/" + hd.linkedin)[linkedin.com/in/#hd.linkedin])
+  items.push(t(hd.location))
+  items.join(text(fill: rgb("#999999"))[  ·  ])
+}
+
+#let identity = [
+  #text(font: "Dosis", weight: "bold", size: 26pt)[#hd.name]
+  #v(-6pt)
+  #text(size: 12pt, fill: accent, weight: "medium")[#T(data.headline.title)]
+  #v(2pt)
+  #contact
+]
+
+#if show-photo {
+  grid(columns: (1fr, auto), column-gutter: 14pt, align: horizon,
+    identity,
+    box(clip: true, radius: 4pt, width: 2.6cm, height: 2.6cm,
+      image(hd.photo, width: 100%, height: 100%, fit: "cover",
+        alt: "Portrait photo of " + hd.name)),
+  )
+} else {
+  identity
+}
+
+// ----------------------------------------------------------------------------
+// Profile / summary
+// ----------------------------------------------------------------------------
+#let summary = T(data.headline.summary)
+#if summary != none {
+  section(L.summary)
+  summary
+}
+
+// ----------------------------------------------------------------------------
+// Experience
+// ----------------------------------------------------------------------------
+#let exp = data.experience.filter(keep)
+#if exp.len() > 0 {
+  section(L.experience)
+  for e in exp {
+    let place = if e.at("remote", default: false) { L.remote } else { t(e.location) }
+    entry(
+      T(e.role), e.org, date-range(e.start, e.end),
+      place: place, bullets: e.at("bullets", default: ()),
+    )
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Projects
+// ----------------------------------------------------------------------------
+#let projs = data.projects.filter(keep)
+#if projs.len() > 0 {
+  section(L.projects)
+  for p in projs {
+    entry(
+      p.name, T(p.role), date-range(p.start, p.end),
+      bullets: p.at("bullets", default: ()),
+    )
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Education
+// ----------------------------------------------------------------------------
+#let edu = data.education.filter(keep)
+#if edu.len() > 0 {
+  section(L.education)
+  for e in edu {
+    entry(
+      e.school, T(e.degree), date-range(e.start, e.end),
+      place: t(e.location), bullets: e.at("bullets", default: ()),
+    )
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Skills
+// ----------------------------------------------------------------------------
+#let sk = data.skills.filter(keep)
+#if sk.len() > 0 {
+  section(L.skills)
+  for s in sk {
+    block(above: 4pt)[
+      #text(weight: "bold")[#T(s.group) : ]#s.at("items", default: ()).join(", ")
+    ]
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Languages
+// ----------------------------------------------------------------------------
+#let langs = data.languages.filter(keep)
+#if langs.len() > 0 {
+  section(L.languages)
+  langs.map(l => [#text(weight: "bold")[#T(l.name)] — #T(l.level)]).join(linebreak())
+}
+
+// ----------------------------------------------------------------------------
+// Certifications
+// ----------------------------------------------------------------------------
+#let certs = data.certifications.filter(keep)
+#if certs.len() > 0 {
+  section(L.certifications)
+  for c in certs {
+    let name = if c.at("url", default: none) != none {
+      link(c.url)[#c.name]
+    } else { c.name }
+    block(above: 4pt)[#name — #c.issuer #h(1fr) #text(fill: rgb("#555555"))[#fmt-date(c.at("date", default: none))]]
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Volunteering
+// ----------------------------------------------------------------------------
+#let vol = data.volunteering.filter(keep)
+#if vol.len() > 0 {
+  section(L.volunteering)
+  for v in vol {
+    entry(
+      T(v.role), v.org, date-range(v.start, v.end),
+      place: t(v.location), bullets: v.at("bullets", default: ()),
+    )
+  }
+}

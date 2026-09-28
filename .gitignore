@@ -9,8 +9,12 @@ Thumbs.db
 *_old.pdf
 *_backup.pdf
 
+# Generated CV PDFs (rebuilt from cv.typ with `make`; see README, "Build")
+dist/
+
 # Docker
 *.log
 
-# Private contact details (see README, "Private data")
+# Private data — never committed (see README, "Private data")
 private.yaml
+photo.jpg
