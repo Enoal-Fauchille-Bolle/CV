@@ -161,14 +161,15 @@
   items.push(link(hd.website)[#hd.website.replace("https://", "")])
   items.push(link("https://github.com/" + hd.github)[github.com/#hd.github])
   items.push(link("https://linkedin.com/in/" + hd.linkedin)[linkedin.com/in/#hd.linkedin])
-  items.push(t(hd.location))
   items.join(text(fill: rgb("#999999"))[  ·  ])
 }
 
 #let identity = [
   #text(font: "Dosis", weight: "bold", size: 26pt)[#hd.name]
   #v(-6pt)
-  #text(size: 12pt, fill: accent, weight: "medium")[#T(data.headline.title)]
+  // The location sits on the title line: at the end of the contacts it wrapped
+  // onto a line of its own once the photo narrowed the column.
+  #text(size: 12pt, fill: accent, weight: "medium")[#T(data.headline.title)]#text(size: 12pt, fill: rgb("#555555"))[ · #t(hd.location)]
   #v(2pt)
   #contact
 ]
