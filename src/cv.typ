@@ -1,11 +1,9 @@
 // cv.typ — single-column CV rendered from cv.yaml.
 //
-// Build (fonts live in ./fonts, so --font-path is required):
-//   typst compile --font-path fonts cv.typ cv-fr.pdf
-//   typst compile --font-path fonts --input lang=en cv.typ cv-en.pdf
-//   typst compile --font-path fonts --input photo=true cv.typ cv-photo.pdf
-//   typst compile --font-path fonts --input private=true cv.typ cv-private.pdf
-//   typst compile --font-path fonts --input variant=backend cv.typ cv-backend.pdf
+// Build with `make` from the repo root (pinned Typst container, see Makefile).
+// cv.yaml, private.yaml and photo.jpg are read relative to this file, and the
+// fonts live in ./fonts, hence --font-path. Manual equivalent:
+//   typst compile --font-path src/fonts --input photo=false src/cv.typ cv.pdf
 //
 // Inputs (sys.inputs values are always strings):
 //   lang     "fr" (default) | "en"        — language of {fr, en} text.

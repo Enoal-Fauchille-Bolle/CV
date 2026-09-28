@@ -4,17 +4,12 @@
 ._*
 Thumbs.db
 
-# Draft PDFs (only resume.pdf should be committed)
-*_draft.pdf
-*_old.pdf
-*_backup.pdf
-
-# Generated CV PDFs (rebuilt from cv.typ with `make`; see README, "Build")
+# Generated CV PDFs (rebuilt from src/cv.typ with `make`; see README, "Build")
 dist/
 
 # Docker
 *.log
 
 # Private data — never committed (see README, "Private data")
-private.yaml
-photo.jpg
+/src/private.yaml
+/src/photo.jpg
