@@ -91,20 +91,71 @@ The CI will then:
 
 ---
 
+## 🛠️ Build the PDF
+
+The CV is written in [Typst](https://typst.app/) and rendered through a pinned
+Typst container, so the output is identical everywhere — no local Typst install
+needed, only Docker.
+
+```bash
+make          # public PDFs (FR + EN, no photo) into dist/
+make private  # local build with photo + phone (needs photo.jpg and private.yaml)
+make clean    # remove dist/
+```
+
+A single `make` on a fresh clone produces `dist/cv-fr.pdf` and `dist/cv-en.pdf`:
+tagged PDF/UA-1 files with hyphenation off, so ATS keyword matching stays intact.
+Generated PDFs live in `dist/` and are git-ignored.
+
+Template inputs (Typst `--input` flags, all optional):
+
+| Input | Values | Effect |
+|---|---|---|
+| `lang` | `fr` (default), `en` | language of the `{fr, en}` text |
+| `photo` | `true` (default), `false` | show or hide the header photo |
+| `private` | `false` (default), `true` | load `private.yaml` (phone) |
+| `variant` | `full` (default), `<tag>` | keep `core` entries plus those tagged `<tag>` |
+
+---
+
+## 🔤 Fonts
+
+Fonts are committed under `fonts/` so builds are identical on any machine, and
+Typst loads them with `--font-path fonts` (wired into the `Makefile`):
+
+| Use | Font | Licence |
+|---|---|---|
+| Name & section headings | [Dosis](https://fonts.google.com/specimen/Dosis) | SIL Open Font License 1.1 |
+| Body text | [Hanken Grotesk](https://fonts.google.com/specimen/Hanken+Grotesk) | SIL Open Font License 1.1 |
+
+Both are OFL, which explicitly allows redistribution — committing them is legal
+and the build never falls back to a substitute font. The original Canva CV used
+*Nourd* (Hanken Design Co.), licensed for personal use only and not
+redistributable in a public repo; Hanken Grotesk is the free, OFL font by the
+same designer, so the look stays close.
+
+---
+
 ## 🔒 Private data
 
 The repository is public, so `cv.yaml` only holds what may be published:
 name, `contact@enoal.fr`, website, GitHub, LinkedIn and city. No driving licence.
 
-The phone number lives in `private.yaml`, which is git-ignored and never leaves the machine:
+Two things stay off the public repo and are git-ignored:
+
+- **Phone** — lives in `private.yaml` (copy `private.example.yaml`).
+- **Photo** — lives in `photo.jpg`.
 
 ```bash
-cp private.example.yaml private.yaml   # then fill in the real values
-typst compile --input private=true cv.typ cv-private.pdf
+cp private.example.yaml private.yaml   # then fill in the real number
+# drop your photo.jpg next to it, then:
+make private                           # dist/cv-*-private.pdf, with photo + phone
 ```
 
-Without `--input private=true`, the template never reads `private.yaml`: that is the public build (CI, Release, enoal.fr).
-With the flag but without the file, compilation fails instead of silently producing a PDF without the phone number.
+The public build (`make`) never sets `private=true` or `photo=true`, so it reads
+neither file: no phone, no photo — safe for CI, the Release and enoal.fr. With
+`private=true` but no file, compilation fails instead of silently shipping a PDF
+without the number.
 
 ---
 
