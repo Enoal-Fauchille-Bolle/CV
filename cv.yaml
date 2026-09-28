@@ -209,10 +209,27 @@ education:
       - fr: "Cours de master en anglais : sécurité informatique, consommation énergétique, expérience utilisateur, et un projet avancé de 15 ECTS"
         en: TODO(#10)
 
+# Only skills backed by an entry of this file (#9).
 skills:
   - id: languages
     group: {fr: Langages, en: Languages}
-    items: [TypeScript, Rust, C, C++, Python, SQL]
+    items: [TypeScript, JavaScript, Python, Rust, C, C++, SQL]
+    tags: [core]
+  - id: backend-web
+    group: {fr: Back-end et web, en: Back-end and web}
+    items: [NestJS, Node.js, React, TypeORM, OAuth2, REST, MCP, RAG]
+    tags: [core, backend, web]
+  - id: infra
+    group: {fr: Infra et DevOps, en: Infrastructure and DevOps}
+    items: [Linux, Docker, Kubernetes (K3s), ArgoCD, Helm, Proxmox VE, Traefik, GitHub Actions]
+    tags: [core, devops, platform]
+  - id: data
+    group: {fr: Données, en: Data}
+    items: [PostgreSQL, S3]
+    tags: [core, backend]
+  - id: tools
+    group: {fr: Outils et méthodes, en: Tools and methods}
+    items: [Git, Git hooks, Scrum, CodeRabbit]
     tags: [core]
 
 languages:
