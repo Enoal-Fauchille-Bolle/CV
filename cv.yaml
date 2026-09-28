@@ -38,6 +38,44 @@ headline:
     en: TODO(#10)
 
 experience:
+  - id: askeal-2026
+    role: {fr: Stage — Développeur full-stack, en: Internship — Full-stack developer}
+    org: Askeal
+    url: https://askeal.com/
+    location: {fr: "Montpellier, France", en: "Montpellier, France"}
+    remote: true
+    start: "2026-04"
+    end: "2026-07"
+    tech: [TypeScript, React, NestJS, PostgreSQL, Python, VoltAgent, S3]
+    tags: [core, web, backend, typescript, ai]
+    bullets:
+      - fr: Livré 70 merge requests en 4 mois sur un assistant IA de cybersécurité multi-agents, avec des serveurs MCP et un pipeline RAG
+        en: TODO(#10)
+      - fr: Conçu le système de contributeurs (entreprises, rôles, revue des demandes), fiabilisé côté API par des transactions et des contraintes d'unicité
+        en: TODO(#10)
+      - fr: Développé l'ingestion des contributions dans le RAG, avec un crawler sur deux niveaux, un re-crawl quotidien et l'archivage S3 des documents refusés
+        en: TODO(#10)
+
+  - id: revolte-2025
+    role: {fr: Stage à temps partiel — Développeur full-stack, en: Part-time internship — Full-stack developer}
+    org: Revolte E-garages
+    url: https://revolte.club/
+    location: {fr: "Carquefou, France", en: "Carquefou, France"}
+    remote: false
+    start: "2025-09"
+    end: "2026-02"
+    tech: [TypeScript, React, NestJS, PostgreSQL, Docker, EmbedPDF, WebAssembly]
+    tags: [core, web, backend, typescript]
+    bullets:
+      - fr: Remplacé le lecteur de la documentation technique payante (react-pdf) par EmbedPDF, un moteur PDFium en WebAssembly, choisi après un comparatif chronométré sur tablettes avec des fichiers de 50 à 500 Mo
+        en: TODO(#10)
+      - fr: Supprimé les plantages mémoire sur les tablettes Android 7 et 10 des garages grâce à une virtualisation qui ne charge que les pages visibles
+        en: TODO(#10)
+      - fr: Développé un zoom au pincement net au pixel près, avec une transformation CSS pendant le geste puis un nouveau rendu vectoriel 200 ms après
+        en: TODO(#10)
+      - fr: Travaillé en équipe de 5 en Agile, sur la refonte de Jack en React et NestJS, avec des pull requests relues par un développeur senior
+        en: TODO(#10)
+
   - id: revolte-2024
     role: {fr: Stage — Développeur full-stack, en: Internship — Full-stack developer}
     org: Revolte E-garages
@@ -46,11 +84,15 @@ experience:
     remote: false
     start: "2024-07"
     end: "2024-12"
-    tech: [TypeScript, React, NestJS, PostgreSQL, Docker]
-    tags: [web, backend, typescript]
+    tech: [Xano, WeWeb, JavaScript]
+    tags: [core, web, nocode]
     bullets:
-      - fr: 111 tâches livrées en 5 mois, dont 92 % sur Jack, l'outil de gestion des interventions
-        en: Delivered 111 tasks in 5 months, 92% of them on Jack, the repair-management tool
+      - fr: Livré 111 tâches en 5 mois, dont 92 % sur Jack, la plateforme des garages Revolte et de leur réseau, lancée en no-code avec ses premiers clients
+        en: Delivered 111 tasks in 5 months, 92% of them on Jack, the platform of Revolte's garages and their network, launched in no-code with its first customers
+      - fr: Développé la gestion multi-garages, les interventions sous haute tension et la génération automatique des habilitations et des attestations batterie
+        en: TODO(#10)
+      - fr: Pris en charge le processus d'intervention (32 opérations) et corrigé des failles de sécurité et des problèmes de performance en production
+        en: TODO(#10)
 
 # Figures below were read from GitHub on 2026-09-27.
 projects:
@@ -175,11 +217,24 @@ certifications:
     tags: [core]
 
 volunteering:
-  - id: devfest-2025
-    role: {fr: Bénévole, en: Volunteer}
+  - id: devfest
+    role: {fr: Bénévole — éditions 2023 et 2025, en: Volunteer — 2023 and 2025 editions}
     org: DevFest Nantes
     location: {fr: "Nantes, France", en: "Nantes, France"}
-    start: "2025-10" # TODO(#9): real month
+    start: "2025-10"
     end: "2025-10"
-    tags: [community]
-    bullets: []
+    tags: [core, community]
+    bullets:
+      - fr: Montage des stands et gestion des salles de conférence, 2 jours par édition, pour un événement de plus de 3 500 participants
+        en: TODO(#10)
+
+  - id: reso2d
+    role: {fr: Bénévole, en: Volunteer}
+    org: Association RESO2D
+    location: null
+    start: "2022-06"
+    end: "2022-06"
+    tags: [extra, community]
+    bullets:
+      - fr: Création et montage de vidéos éducatives sur le Green IT et la RSE pendant 2 semaines
+        en: TODO(#10)
