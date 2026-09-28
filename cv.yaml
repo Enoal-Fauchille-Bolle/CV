@@ -1,0 +1,106 @@
+# cv.yaml — single source for every PDF (FR/EN, public/private, per-offer).
+#
+# Schema (v1)
+# -----------
+# Text      Translatable text is a `{fr, en}` mapping. Language-neutral values
+#           (proper nouns, technologies, URLs) are plain strings.
+# Dates     `"YYYY-MM"`, always quoted. `end: null` means "ongoing".
+# Entries   Every list entry has a unique `id` and a `tags` list. Variants and
+#           per-offer builds select and order entries by `id` and `tags`.
+# Bullets   `bullets` is a list of `{fr, en}` items, most important first.
+# Private   Phone number lives in the git-ignored `private.yaml`, loaded only
+#           with `--input private=true` (see README, "Private data").
+#
+# Sections: header, headline, experience, projects, education, skills,
+# languages, certifications, volunteering.
+#
+# Sample entries below illustrate the schema; content is written in #5 to #9.
+
+schema: 1
+
+header:
+  name: Enoal Fauchille-Bolle
+  email: contact@enoal.fr
+  website: https://enoal.fr
+  github: Enoal-Fauchille-Bolle
+  linkedin: enoal-fauchille
+  location: {fr: "Nantes, France", en: "Nantes, France"}
+  photo: photo.jpg
+
+headline:
+  title:
+    fr: TODO(#5)
+    en: TODO(#10)
+  summary:
+    fr: TODO(#5)
+    en: TODO(#10)
+
+experience:
+  - id: revolte-2024
+    role: {fr: Stage — Développeur full-stack, en: Internship — Full-stack developer}
+    org: Revolte E-garages
+    url: https://revolte.club/
+    location: {fr: "Carquefou, France", en: "Carquefou, France"}
+    remote: false
+    start: "2024-07"
+    end: "2024-12"
+    tech: [TypeScript, React, NestJS, PostgreSQL, Docker]
+    tags: [web, backend, typescript]
+    bullets:
+      - fr: 111 tâches livrées en 5 mois, dont 92 % sur Jack, l'outil de gestion des interventions
+        en: Delivered 111 tasks in 5 months, 92% of them on Jack, the repair-management tool
+
+projects:
+  - id: termoxide
+    name: TermOxide
+    url: https://github.com/TermOxide/TermOxide
+    role: {fr: Crate de gestion des événements, en: Event-handling crate}
+    start: "2026-06"
+    end: null
+    tech: [Rust, crossterm]
+    tags: [rust, systems, team]
+    bullets:
+      - fr: TODO(#7)
+        en: TODO(#10)
+
+education:
+  - id: epitech
+    school: Epitech Nantes
+    degree:
+      fr: Expert en technologies de l'information — RNCP niveau 7
+      en: Master's-level degree in information technology — RNCP level 7
+    location: {fr: "Nantes, France", en: "Nantes, France"}
+    start: "2023-09" # TODO(#4): confirm month
+    end: "2028-08" # TODO(#4): confirm month
+    tags: [core]
+    bullets: []
+
+skills:
+  - id: languages
+    group: {fr: Langages, en: Languages}
+    items: [TypeScript, Rust, C, C++, Python, SQL]
+    tags: [core]
+
+languages:
+  - id: english
+    name: {fr: Anglais, en: English}
+    level: {fr: TOEIC 840, en: TOEIC 840}
+    tags: [core]
+
+certifications:
+  - id: toeic
+    name: TOEIC Listening & Reading — 840
+    issuer: ETS
+    date: "2026-01" # TODO(#8): real month
+    url: null
+    tags: [core]
+
+volunteering:
+  - id: devfest-2025
+    role: {fr: Bénévole, en: Volunteer}
+    org: DevFest Nantes
+    location: {fr: "Nantes, France", en: "Nantes, France"}
+    start: "2025-10" # TODO(#9): real month
+    end: "2025-10"
+    tags: [community]
+    bullets: []

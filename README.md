@@ -91,6 +91,30 @@ The CI will then:
 
 ---
 
+## 🔒 Private data
+
+The repository is public, so `cv.yaml` only holds what may be published:
+name, `contact@enoal.fr`, website, GitHub, LinkedIn and city. No driving licence.
+
+The phone number lives in `private.yaml`, which is git-ignored and never leaves the machine:
+
+```bash
+cp private.example.yaml private.yaml   # then fill in the real values
+typst compile --input private=true cv.typ cv-private.pdf
+```
+
+Without `--input private=true`, the template never reads `private.yaml`: that is the public build (CI, Release, enoal.fr).
+With the flag but without the file, compilation fails instead of silently producing a PDF without the phone number.
+
+---
+
+## 🗂️ `cv.yaml` schema
+
+The schema is documented in the header comment of [`cv.yaml`](./cv.yaml):
+`{fr, en}` text, `"YYYY-MM"` dates, and an `id` plus `tags` on every entry for variant selection.
+
+---
+
 ## 📝 License
 
 [MIT © Enoal Fauchille-Bolle](./LICENSE)

@@ -11,3 +11,6 @@ Thumbs.db
 
 # Docker
 *.log
+
+# Private contact details (see README, "Private data")
+private.yaml

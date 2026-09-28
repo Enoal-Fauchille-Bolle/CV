@@ -1,0 +1,3 @@
+# Copy to `private.yaml` (git-ignored) and fill in real values.
+# Loaded only when compiling with `--input private=true`.
+phone: "+33 6 00 00 00 00"
