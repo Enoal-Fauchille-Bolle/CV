@@ -32,8 +32,8 @@ headline:
     fr: Développeur full-stack orienté back-end
     en: Back-end-leaning full-stack developer
   summary:
-    fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Trois stages full-stack en TypeScript (React, NestJS) et un homelab Kubernetes géré en GitOps. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel (3 jours par semaine) jusqu'en février, puis temps plein."
-    en: TODO(#10)
+    fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Trois stages full-stack en TypeScript (React, NestJS) et un homelab Kubernetes géré en GitOps. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
+    en: "4th-year Epitech student on exchange at Roskilde University. Three full-stack internships in TypeScript (React, NestJS) and a Kubernetes homelab run with GitOps. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
 
 experience:
   - id: askeal-2026
@@ -48,11 +48,11 @@ experience:
     tags: [core, web, backend, typescript, ai]
     bullets:
       - fr: Livré 70 merge requests en 4 mois sur un assistant IA de cybersécurité multi-agents (serveurs MCP, RAG)
-        en: TODO(#10)
+        en: "Shipped 70 merge requests in 4 months on a multi-agent AI cybersecurity assistant (MCP servers, RAG)"
       - fr: Conçu la gestion des contributeurs (rôles, revue des demandes), fiabilisée par transactions et contraintes d'unicité
-        en: TODO(#10)
+        en: "Designed contributor management (roles, request review), made reliable with transactions and unique constraints"
       - fr: "Développé l'ingestion des contributions dans le RAG : crawler à deux niveaux, re-crawl quotidien, archivage S3"
-        en: TODO(#10)
+        en: "Built the ingestion of contributions into the RAG: two-level crawler, daily re-crawl, S3 archiving"
 
   - id: revolte-2025
     role: {fr: Stage à temps partiel — Développeur full-stack, en: Part-time internship — Full-stack developer}
@@ -66,9 +66,9 @@ experience:
     tags: [core, web, backend, typescript]
     bullets:
       - fr: Migré le lecteur de documentation technique vers EmbedPDF (WebAssembly), choisi après un comparatif sur tablettes
-        en: TODO(#10)
+        en: "Migrated the technical documentation viewer to EmbedPDF (WebAssembly), chosen after a comparison on tablets"
       - fr: "Fiabilisé le lecteur sur les tablettes Android des garages : plus de plantages mémoire, zoom net au pincement"
-        en: TODO(#10)
+        en: "Stabilized the viewer on the garages' Android tablets: no more out-of-memory crashes, sharp pinch-to-zoom"
 
   - id: revolte-2024
     role: {fr: Stage — Développeur full-stack, en: Internship — Full-stack developer}
@@ -84,9 +84,9 @@ experience:
       - fr: Livré 111 tâches en 5 mois, dont 92 % sur Jack, la plateforme no-code des garages Revolte et de leur réseau
         en: Delivered 111 tasks in 5 months, 92% of them on Jack, the no-code platform of Revolte's garages and their network
       - fr: Développé la gestion multi-garages, les interventions haute tension et les habilitations et attestations batterie
-        en: TODO(#10)
-      - fr: Pris en charge le processus d'intervention (32 opérations) et corrigé des failles de sécurité et des lenteurs
-        en: TODO(#10)
+        en: "Built multi-garage management, high-voltage repair jobs, and battery staff qualifications and certificates"
+      - fr: Pris en charge le processus d'intervention de bout en bout et corrigé des failles de sécurité et des lenteurs
+        en: "Took end-to-end ownership of the repair job workflow and fixed security flaws and slow pages"
 
 # Figures below were read from GitHub on 2026-09-27.
 projects:
@@ -100,9 +100,9 @@ projects:
     tags: [core, devops, platform]
     bullets:
       - fr: Conçu et exploité un homelab de plus de 30 services, de Proxmox VE à un cluster K3s déployé en GitOps par ArgoCD
-        en: TODO(#10)
+        en: "Designed and run a homelab of 30+ services, from Proxmox VE to a K3s cluster deployed with GitOps by ArgoCD"
       - fr: Mis en place des sauvegardes 3-2-1 chiffrées (RPO ≤ 24 h, RTO de 30 min à 2 h), avec des restaurations testées
-        en: TODO(#10)
+        en: "Set up encrypted 3-2-1 backups (RPO ≤ 24 h, RTO from 30 min to 2 h), with tested restores"
 
   - id: skylode
     name: Skylode
@@ -114,11 +114,11 @@ projects:
     tags: [extra, rust, devops, release]
     bullets:
       - fr: Développé en Rust un jeu incrémental en terminal, avec un workspace Cargo qui sépare les règles de l'interface
-        en: TODO(#10)
+        en: "Built an incremental terminal game in Rust, with a Cargo workspace that keeps the game rules apart from the UI"
       - fr: Fiabilisé les sauvegardes des joueurs, versionnées et migrées au chargement, écrites de façon atomique et signées par HMAC
-        en: TODO(#10)
+        en: "Hardened player saves: versioned and migrated on load, written atomically and signed with HMAC"
       - fr: Automatisé les releases, avec des binaires Linux, Windows et macOS dotés d'attestations de provenance signées et publiés sur crates.io
-        en: TODO(#10)
+        en: "Automated releases: Linux, Windows and macOS binaries with signed provenance attestations, published to crates.io"
 
   - id: area
     name: AREA
@@ -130,9 +130,9 @@ projects:
     tags: [backend, typescript, team]
     bullets:
       - fr: "Développé le serveur NestJS d'une plateforme façon Zapier : OAuth2, déclencheurs cron, webhook et polling"
-        en: TODO(#10)
-      - fr: Mis en place la CI GitHub Actions ; livré en 7 semaines, 2e contributeur sur 5 (123 commits)
-        en: TODO(#10)
+        en: "Built the NestJS server of a Zapier-like platform: OAuth2, cron, webhook and polling triggers"
+      - fr: Mis en place la CI GitHub Actions ; projet livré en 7 semaines
+        en: "Set up the GitHub Actions CI; project shipped in 7 weeks"
 
   - id: termoxide
     name: TermOxide
@@ -144,9 +144,9 @@ projects:
     tags: [core, rust, team]
     bullets:
       - fr: Conçu la crate des événements clavier et souris d'un framework TUI réactif en Rust, typée et non bloquante
-        en: TODO(#10)
+        en: "Designed the keyboard and mouse event crate of a reactive Rust TUI framework, strongly typed and non-blocking"
       - fr: "Mis en place l'outillage qualité : hooks git (format, lint, commits) et revue automatisée par CodeRabbit"
-        en: TODO(#10)
+        en: "Set up the quality tooling: git hooks (formatting, linting, commit messages) and automated review by CodeRabbit"
 
   - id: zappy
     name: Zappy
@@ -158,7 +158,7 @@ projects:
     tags: [extra, systems, network, team]
     bullets:
       - fr: Développé le serveur en C d'un jeu de stratégie multijoueur en réseau, 1er contributeur avec 382 commits sur 757
-        en: TODO(#10)
+        en: "Built the C server of a networked multiplayer strategy game, top contributor with 382 of 757 commits"
 
   - id: r-type
     name: R-Type
@@ -170,9 +170,9 @@ projects:
     tags: [extra, systems, network, team]
     bullets:
       - fr: Spécifié et documenté le protocole UDP binaire d'un moteur de jeu multijoueur à architecture ECS
-        en: TODO(#10)
+        en: "Specified and documented the binary UDP protocol of a multiplayer game engine built on an ECS architecture"
       - fr: Développé la gestion des entrées côté client et un mode solo avec serveur intégré
-        en: TODO(#10)
+        en: "Built client-side input handling and a single-player mode with an embedded server"
 
 education:
   - id: epitech
@@ -196,8 +196,8 @@ education:
     end: "2027-06"
     tags: [core]
     bullets:
-      - fr: "Cours de master en anglais : sécurité informatique, consommation énergétique, UX et projet avancé de 15 ECTS"
-        en: TODO(#10)
+      - fr: "Cours en anglais : sécurité informatique, efficacité énergétique du logiciel, UX, data science et MLOps, deux projets"
+        en: "Courses taught in English: IT security, software energy efficiency, UX, data science and MLOps, two projects"
 
 # Only skills backed by an entry of this file (#9).
 skills:
@@ -240,7 +240,7 @@ volunteering:
     tags: [extra, community]
     bullets:
       - fr: Montage des stands et gestion des salles, 2 jours par édition, pour plus de 3 500 participants
-        en: TODO(#10)
+        en: "Set up booths and managed rooms, 2 days per edition, for 3,500+ attendees"
 
   - id: reso2d
     role: {fr: Bénévole, en: Volunteer}
@@ -251,4 +251,4 @@ volunteering:
     tags: [extra, community]
     bullets:
       - fr: Création et montage de vidéos éducatives sur le Green IT et la RSE pendant 2 semaines
-        en: TODO(#10)
+        en: "Created and edited educational videos on Green IT and CSR over 2 weeks"
