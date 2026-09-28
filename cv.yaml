@@ -47,11 +47,11 @@ experience:
     tech: [TypeScript, React, NestJS, PostgreSQL, Python, VoltAgent, S3]
     tags: [core, web, backend, typescript, ai]
     bullets:
-      - fr: Livré 70 merge requests en 4 mois sur un assistant IA de cybersécurité multi-agents, avec des serveurs MCP et un pipeline RAG
+      - fr: Livré 70 merge requests en 4 mois sur un assistant IA de cybersécurité multi-agents (serveurs MCP, RAG)
         en: TODO(#10)
-      - fr: Conçu le système de contributeurs (entreprises, rôles, revue des demandes), fiabilisé côté API par des transactions et des contraintes d'unicité
+      - fr: Conçu la gestion des contributeurs (rôles, revue des demandes), fiabilisée par transactions et contraintes d'unicité
         en: TODO(#10)
-      - fr: Développé l'ingestion des contributions dans le RAG, avec un crawler sur deux niveaux, un re-crawl quotidien et l'archivage S3 des documents refusés
+      - fr: "Développé l'ingestion des contributions dans le RAG : crawler à deux niveaux, re-crawl quotidien, archivage S3"
         en: TODO(#10)
 
   - id: revolte-2025
@@ -65,13 +65,9 @@ experience:
     tech: [TypeScript, React, NestJS, PostgreSQL, Docker, EmbedPDF, WebAssembly]
     tags: [core, web, backend, typescript]
     bullets:
-      - fr: Remplacé le lecteur de la documentation technique payante (react-pdf) par EmbedPDF, un moteur PDFium en WebAssembly, choisi après un comparatif chronométré sur tablettes avec des fichiers de 50 à 500 Mo
+      - fr: Migré le lecteur de documentation technique vers EmbedPDF (WebAssembly), choisi après un comparatif sur tablettes
         en: TODO(#10)
-      - fr: Supprimé les plantages mémoire sur les tablettes Android 7 et 10 des garages grâce à une virtualisation qui ne charge que les pages visibles
-        en: TODO(#10)
-      - fr: Développé un zoom au pincement net au pixel près, avec une transformation CSS pendant le geste puis un nouveau rendu vectoriel 200 ms après
-        en: TODO(#10)
-      - fr: Travaillé en équipe de 5 en Agile, sur la refonte de Jack en React et NestJS, avec des pull requests relues par un développeur senior
+      - fr: "Fiabilisé le lecteur sur les tablettes Android des garages : plus de plantages mémoire, zoom net au pincement"
         en: TODO(#10)
 
   - id: revolte-2024
@@ -85,11 +81,11 @@ experience:
     tech: [Xano, WeWeb, JavaScript]
     tags: [core, web, nocode]
     bullets:
-      - fr: Livré 111 tâches en 5 mois, dont 92 % sur Jack, la plateforme des garages Revolte et de leur réseau, lancée en no-code avec ses premiers clients
-        en: Delivered 111 tasks in 5 months, 92% of them on Jack, the platform of Revolte's garages and their network, launched in no-code with its first customers
-      - fr: Développé la gestion multi-garages, les interventions sous haute tension et la génération automatique des habilitations et des attestations batterie
+      - fr: Livré 111 tâches en 5 mois, dont 92 % sur Jack, la plateforme no-code des garages Revolte et de leur réseau
+        en: Delivered 111 tasks in 5 months, 92% of them on Jack, the no-code platform of Revolte's garages and their network
+      - fr: Développé la gestion multi-garages, les interventions haute tension et les habilitations et attestations batterie
         en: TODO(#10)
-      - fr: Pris en charge le processus d'intervention (32 opérations) et corrigé des failles de sécurité et des problèmes de performance en production
+      - fr: Pris en charge le processus d'intervention (32 opérations) et corrigé des failles de sécurité et des lenteurs
         en: TODO(#10)
 
 # Figures below were read from GitHub on 2026-09-27.
@@ -103,9 +99,7 @@ projects:
     tech: [Proxmox VE, K3s, ArgoCD, Helm, Docker Compose, Traefik, Infisical, Restic, GitHub Actions]
     tags: [core, devops, platform]
     bullets:
-      - fr: Conçu et exploité un homelab de plus de 30 services, du serveur Proxmox VE au cluster K3s déployé en GitOps par ArgoCD
-        en: TODO(#10)
-      - fr: Automatisé l'exploitation avec des secrets synchronisés depuis Infisical, des mises à jour par Renovate et des runners GitHub Actions auto-hébergés
+      - fr: Conçu et exploité un homelab de plus de 30 services, de Proxmox VE à un cluster K3s déployé en GitOps par ArgoCD
         en: TODO(#10)
       - fr: Mis en place des sauvegardes 3-2-1 chiffrées (RPO ≤ 24 h, RTO de 30 min à 2 h), avec des restaurations testées
         en: TODO(#10)
@@ -117,7 +111,7 @@ projects:
     start: "2026-06"
     end: null
     tech: [Rust, Ratatui, Crossterm, GitHub Actions, crates.io]
-    tags: [rust, devops, release]
+    tags: [extra, rust, devops, release]
     bullets:
       - fr: Développé en Rust un jeu incrémental en terminal, avec un workspace Cargo qui sépare les règles de l'interface
         en: TODO(#10)
@@ -135,11 +129,9 @@ projects:
     tech: [TypeScript, NestJS, PostgreSQL, TypeORM, Docker, GitHub Actions]
     tags: [backend, typescript, team]
     bullets:
-      - fr: Développé le serveur NestJS d'une plateforme d'automatisation façon Zapier, avec OAuth2 (Google, GitHub, Discord, Spotify…) et des déclencheurs cron, webhook et polling
+      - fr: "Développé le serveur NestJS d'une plateforme façon Zapier : OAuth2, déclencheurs cron, webhook et polling"
         en: TODO(#10)
-      - fr: Mis en place la CI GitHub Actions du projet
-        en: TODO(#10)
-      - fr: Livré en 7 semaines, 2e contributeur sur 5 (123 commits)
+      - fr: Mis en place la CI GitHub Actions ; livré en 7 semaines, 2e contributeur sur 5 (123 commits)
         en: TODO(#10)
 
   - id: termoxide
@@ -151,9 +143,9 @@ projects:
     tech: [Rust, crossterm, CodeRabbit]
     tags: [core, rust, team]
     bullets:
-      - fr: Conçu la crate des événements clavier et souris d'un framework TUI réactif en Rust, avec un flux d'événements typé et une lecture non bloquante
+      - fr: Conçu la crate des événements clavier et souris d'un framework TUI réactif en Rust, typée et non bloquante
         en: TODO(#10)
-      - fr: Mis en place l'outillage qualité de l'équipe, avec des hooks git (format, lint, messages de commit) et la revue automatisée par CodeRabbit
+      - fr: "Mis en place l'outillage qualité : hooks git (format, lint, commits) et revue automatisée par CodeRabbit"
         en: TODO(#10)
 
   - id: zappy
@@ -204,42 +196,34 @@ education:
     end: "2027-06"
     tags: [core]
     bullets:
-      - fr: "Cours de master en anglais : sécurité informatique, consommation énergétique, expérience utilisateur, et un projet avancé de 15 ECTS"
+      - fr: "Cours de master en anglais : sécurité informatique, consommation énergétique, UX et projet avancé de 15 ECTS"
         en: TODO(#10)
 
 # Only skills backed by an entry of this file (#9).
 skills:
   - id: languages
-    group: {fr: Langages, en: Languages}
+    group: {fr: Langages, en: Programming languages}
     items: [TypeScript, JavaScript, Python, Rust, C, C++, SQL]
     tags: [core]
   - id: backend-web
     group: {fr: Back-end et web, en: Back-end and web}
-    items: [NestJS, Node.js, React, TypeORM, OAuth2, REST, MCP, RAG]
+    items: [NestJS, Node.js, React, TypeORM, PostgreSQL, S3, OAuth2, REST, MCP, RAG]
     tags: [core, backend, web]
   - id: infra
-    group: {fr: Infra et DevOps, en: Infrastructure and DevOps}
-    items: [Linux, Docker, Kubernetes (K3s), ArgoCD, Helm, Proxmox VE, Traefik, GitHub Actions]
+    group: {fr: Infra et outils, en: Infrastructure and tools}
+    items: [Linux, Docker, Kubernetes (K3s), ArgoCD, Helm, Proxmox VE, GitHub Actions, Git, Scrum]
     tags: [core, devops, platform]
-  - id: data
-    group: {fr: Données, en: Data}
-    items: [PostgreSQL, S3]
-    tags: [core, backend]
-  - id: tools
-    group: {fr: Outils et méthodes, en: Tools and methods}
-    items: [Git, Git hooks, Scrum, CodeRabbit]
-    tags: [core]
 
 languages:
   - id: french
     name: {fr: Français, en: French}
-    level: {fr: Langue maternelle, en: Native}
+    level: {fr: langue maternelle, en: native}
     tags: [core]
   - id: english
     name: {fr: Anglais, en: English}
     level:
-      fr: B2 (année de master en anglais à Roskilde)
-      en: B2 (Master's year taught in English at Roskilde)
+      fr: B2, année de master en anglais à Roskilde
+      en: B2, Master's year taught in English at Roskilde
     tags: [core]
 
 # Each entry: id, name, issuer, date, url, tags. None to show yet: the 840
@@ -253,9 +237,9 @@ volunteering:
     location: {fr: "Nantes, France", en: "Nantes, France"}
     start: "2025-10"
     end: "2025-10"
-    tags: [core, community]
+    tags: [extra, community]
     bullets:
-      - fr: Montage des stands et gestion des salles de conférence, 2 jours par édition, pour un événement de plus de 3 500 participants
+      - fr: Montage des stands et gestion des salles, 2 jours par édition, pour plus de 3 500 participants
         en: TODO(#10)
 
   - id: reso2d
