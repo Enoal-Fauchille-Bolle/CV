@@ -11,7 +11,7 @@
 //   lang     "fr" (default) | "en"        — language of {fr, en} text.
 //   photo    "true" (default) | "false"   — show/hide the header photo.
 //   private  "false" (default) | "true"   — load the git-ignored private.yaml (phone).
-//   variant  "full" (default) | <tag>     — keep entries tagged "core" plus <tag>.
+//   variant  "full" (default) | <tag>     — see keep() below for the tag rules.
 
 // ----------------------------------------------------------------------------
 // Inputs & data
@@ -72,11 +72,19 @@
 }
 #let date-range(start, end) = fmt-date(start) + " – " + fmt-date(end)
 
-// Keep an entry for the current variant: "full" keeps all, otherwise keep
-// "core" entries plus those carrying the requested tag.
+// Keep an entry for the current variant:
+//   variant == "full"  -> keep everything EXCEPT entries tagged "extra"
+//                         (redundant school projects hidden from the default CV).
+//   variant == <tag>   -> keep "core" entries plus those carrying <tag>. An
+//                         "extra" entry carrying <tag> then reappears — that is
+//                         the point of per-offer selection.
 #let keep(e) = {
   let tags = e.at("tags", default: ())
-  variant == "full" or ("core" in tags) or (variant in tags)
+  if variant == "full" {
+    "extra" not in tags
+  } else {
+    ("core" in tags) or (variant in tags)
+  }
 }
 
 // ----------------------------------------------------------------------------
@@ -112,8 +120,9 @@
   v(3pt)
 }
 
-// One dated entry: bold title, right-aligned dates, subtitle line, bullets.
-#let entry(title, subtitle, dates, place: none, bullets: ()) = {
+// One dated entry: bold title, right-aligned dates, subtitle line, bullets, and
+// an optional tech stack line (plain selectable words, no icons — ATS-safe).
+#let entry(title, subtitle, dates, place: none, tech: (), bullets: ()) = {
   block(width: 100%, breakable: false, above: 6pt)[
     #grid(columns: (1fr, auto), column-gutter: 8pt,
       text(weight: "bold")[#title],
@@ -127,6 +136,10 @@
     #if bullets.len() > 0 {
       set text(size: 9.5pt)
       list(..bullets.map(b => T(b)))
+    }
+    #if tech.len() > 0 {
+      set text(size: 8.5pt, fill: accent)
+      tech.join(" · ")
     }
   ]
 }
@@ -179,14 +192,15 @@
 // ----------------------------------------------------------------------------
 // Experience
 // ----------------------------------------------------------------------------
-#let exp = data.experience.filter(keep)
+#let exp = data.at("experience", default: ()).filter(keep)
 #if exp.len() > 0 {
   section(L.experience)
   for e in exp {
     let place = if e.at("remote", default: false) { L.remote } else { t(e.location) }
+    let org = if e.at("url", default: none) != none { link(e.url)[#e.org] } else { e.org }
     entry(
-      T(e.role), e.org, date-range(e.start, e.end),
-      place: place, bullets: e.at("bullets", default: ()),
+      T(e.role), org, date-range(e.start, e.end),
+      place: place, tech: e.at("tech", default: ()), bullets: e.at("bullets", default: ()),
     )
   }
 }
@@ -194,13 +208,14 @@
 // ----------------------------------------------------------------------------
 // Projects
 // ----------------------------------------------------------------------------
-#let projs = data.projects.filter(keep)
+#let projs = data.at("projects", default: ()).filter(keep)
 #if projs.len() > 0 {
   section(L.projects)
   for p in projs {
+    let name = if p.at("url", default: none) != none { link(p.url)[#p.name] } else { p.name }
     entry(
-      p.name, T(p.role), date-range(p.start, p.end),
-      bullets: p.at("bullets", default: ()),
+      name, T(p.role), date-range(p.start, p.end),
+      tech: p.at("tech", default: ()), bullets: p.at("bullets", default: ()),
     )
   }
 }
@@ -208,7 +223,7 @@
 // ----------------------------------------------------------------------------
 // Education
 // ----------------------------------------------------------------------------
-#let edu = data.education.filter(keep)
+#let edu = data.at("education", default: ()).filter(keep)
 #if edu.len() > 0 {
   section(L.education)
   for e in edu {
@@ -222,7 +237,7 @@
 // ----------------------------------------------------------------------------
 // Skills
 // ----------------------------------------------------------------------------
-#let sk = data.skills.filter(keep)
+#let sk = data.at("skills", default: ()).filter(keep)
 #if sk.len() > 0 {
   section(L.skills)
   for s in sk {
@@ -235,7 +250,7 @@
 // ----------------------------------------------------------------------------
 // Languages
 // ----------------------------------------------------------------------------
-#let langs = data.languages.filter(keep)
+#let langs = data.at("languages", default: ()).filter(keep)
 #if langs.len() > 0 {
   section(L.languages)
   langs.map(l => [#text(weight: "bold")[#T(l.name)] — #T(l.level)]).join(linebreak())
@@ -244,7 +259,7 @@
 // ----------------------------------------------------------------------------
 // Certifications
 // ----------------------------------------------------------------------------
-#let certs = data.certifications.filter(keep)
+#let certs = data.at("certifications", default: ()).filter(keep)
 #if certs.len() > 0 {
   section(L.certifications)
   for c in certs {
@@ -258,7 +273,7 @@
 // ----------------------------------------------------------------------------
 // Volunteering
 // ----------------------------------------------------------------------------
-#let vol = data.volunteering.filter(keep)
+#let vol = data.at("volunteering", default: ()).filter(keep)
 #if vol.len() > 0 {
   section(L.volunteering)
   for v in vol {
