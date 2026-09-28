@@ -70,7 +70,10 @@
   let m = int(parts.at(1, default: "1"))
   months.at(m - 1) + " " + year
 }
-#let date-range(start, end) = fmt-date(start) + " – " + fmt-date(end)
+// A one-month entry (start == end) shows a single date instead of a range.
+#let date-range(start, end) = if start == end { fmt-date(start) } else {
+  fmt-date(start) + " – " + fmt-date(end)
+}
 
 // Keep an entry for the current variant:
 //   variant == "full"  -> keep everything EXCEPT entries tagged "extra"
