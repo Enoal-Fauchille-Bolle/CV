@@ -15,8 +15,6 @@
 #
 # Sections: header, headline, experience, projects, education, skills,
 # languages, certifications, volunteering.
-#
-# Sample entries below illustrate the schema; content is written in #5 to #9.
 
 schema: 1
 
@@ -31,10 +29,10 @@ header:
 
 headline:
   title:
-    fr: TODO(#5)
-    en: TODO(#10)
+    fr: Développeur full-stack orienté back-end
+    en: Back-end-leaning full-stack developer
   summary:
-    fr: TODO(#5)
+    fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Trois stages full-stack en TypeScript (React, NestJS) et un homelab Kubernetes géré en GitOps. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel (3 jours par semaine) jusqu'en février, puis temps plein."
     en: TODO(#10)
 
 experience:
