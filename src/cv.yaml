@@ -26,6 +26,8 @@ header:
   linkedin: enoal-fauchille
   location: {fr: "Nantes, France", en: "Nantes, France"}
   photo: photo.jpg
+  # Shown in the page footer, with the version the PDF was built from.
+  source: https://github.com/Enoal-Fauchille-Bolle/CV
 
 headline:
   title:

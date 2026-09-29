@@ -62,6 +62,11 @@ The template takes optional Typst `--input` flags:
 | `photo` | `true` (default), `false` | show or hide the header photo |
 | `private` | `false` (default), `true` | load `src/private.yaml` (phone) |
 | `variant` | `full` (default), `<tag>` | keep `core` entries plus those tagged `<tag>` |
+| `version` | empty (default), `v3.0.0`… | printed after the source link at the bottom of the page |
+
+The Makefile sets `version` from `git describe --tags --always --dirty`, so a
+PDF built on a release tag reads `v3.0.0`, and one built in between reads
+`v3.0.0-2-gabc1234` (`-dirty` with uncommitted changes).
 
 The `cv.yaml` schema is documented in its header comment: `{fr, en}` text,
 `"YYYY-MM"` dates, and an `id` plus `tags` on every entry for variant selection.

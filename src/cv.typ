@@ -10,6 +10,7 @@
 //   photo    "true" (default) | "false"   — show/hide the header photo.
 //   private  "false" (default) | "true"   — load the git-ignored private.yaml (phone).
 //   variant  "full" (default) | <tag>     — see keep() below for the tag rules.
+//   version  "" (default) | "v3.0.0"…    — shown in the footer (`git describe`).
 
 // ----------------------------------------------------------------------------
 // Inputs & data
@@ -18,6 +19,7 @@
 #let lang = sys.inputs.at("lang", default: "fr")
 #let show-photo = sys.inputs.at("photo", default: "true") != "false"
 #let variant = sys.inputs.at("variant", default: "full")
+#let version = sys.inputs.at("version", default: "")
 #let priv = if sys.inputs.at("private", default: "false") == "true" {
   yaml("private.yaml")
 } else { (:) }
@@ -43,12 +45,14 @@
     education: "Formation", skills: "Compétences", languages: "Langues",
     certifications: "Certifications", volunteering: "Bénévolat",
     present: "présent", remote: "à distance", colon: " : ",
+    source: "Ce CV est généré depuis son code source : ",
   ),
   en: (
     summary: "Profile", experience: "Experience", projects: "Projects",
     education: "Education", skills: "Skills", languages: "Languages",
     certifications: "Certifications", volunteering: "Volunteering",
     present: "present", remote: "remote", colon: ": ",
+    source: "This CV is generated from its source code: ",
   ),
 ).at(lang, default: (:))
 
@@ -109,9 +113,10 @@
   hyphenate: false,          // never split keywords like "TypeScript"
 )
 #set par(justify: false, leading: 0.6em)
+#let accent = rgb("#1f6f8b")
+
 #set page(paper: "a4", margin: (x: 1.5cm, y: 1.4cm))
 
-#let accent = rgb("#1f6f8b")
 #show link: set text(fill: accent)
 
 // Section heading: uppercase title in Dosis with an accent rule underneath.
@@ -292,3 +297,12 @@
     )
   }
 }
+
+// ----------------------------------------------------------------------------
+// Source line
+// ----------------------------------------------------------------------------
+// Pinned into the bottom margin, so it costs no line of content. Not a page
+// footer: PDF/UA marks footers as artifacts, which may not contain links.
+#place(bottom + center, dy: 0.8cm, text(size: 7.5pt, fill: rgb("#999999"))[
+  #L.source#link(data.header.source)[#data.header.source]#if version != "" [ · #version]
+])

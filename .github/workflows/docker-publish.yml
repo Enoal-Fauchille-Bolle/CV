@@ -55,7 +55,9 @@ jobs:
         with:
           context: .
           file: deploy/Dockerfile
-          build-args: TYPST_VERSION=${{ env.TYPST_VERSION }}
+          build-args: |
+            TYPST_VERSION=${{ env.TYPST_VERSION }}
+            VERSION=${{ github.ref_name }}
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}

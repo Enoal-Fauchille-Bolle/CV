@@ -9,13 +9,15 @@ ARG TYPST_VERSION=0.15.1
 
 FROM ghcr.io/typst/typst:${TYPST_VERSION} AS build
 ARG NAME=CV-Enoal-Fauchille-Bolle
+# No .git in the build context: the Makefile and the CI pass `git describe`.
+ARG VERSION=
 WORKDIR /w
 COPY src/cv.typ src/cv.yaml ./src/
 COPY src/fonts ./src/fonts
 RUN mkdir dist \
  && for lang in fr en; do \
       typst compile --font-path src/fonts --pdf-standard ua-1 \
-        --input lang=$lang --input photo=false \
+        --input lang=$lang --input photo=false --input version=$VERSION \
         src/cv.typ "dist/${NAME}-$(echo $lang | tr a-z A-Z).pdf"; \
     done
 

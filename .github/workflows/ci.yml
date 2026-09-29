@@ -16,8 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Full history and tags, so `git describe` can print the version.
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       # Already on ubuntu-latest; the fallback covers a runner image without it.
       - name: Ensure poppler-utils (pdftotext, pdfinfo)
@@ -41,8 +44,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Full history and tags, so `git describe` can print the version.
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Ensure poppler-utils (pdftotext, pdfinfo)
         run: command -v pdftotext pdfinfo || sudo apt-get install -y poppler-utils
