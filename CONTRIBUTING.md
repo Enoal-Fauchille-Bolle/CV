@@ -7,7 +7,9 @@ with. These rules keep every edit consistent with decisions already made.
 
 - **One page, always.** Every combination must compile to a single page:
   `lang` ∈ {`fr`, `en`} × `photo` ∈ {`true`, `false`} × `private` ∈ {`false`,
-  `true`}. Check with `pdfinfo <file> | grep Pages`.
+  `true`}, and every `TAG` variant except `extra`, which shows every entry
+  for review and is never sent. `make check` and the CI enforce it on the
+  public builds; check a private one with `scripts/check-ats.sh dist/*.pdf`.
 - **Do not touch the margins or the fonts** to make content fit. Shorten the
   text, or move things within the header, instead.
 - **One line per bullet.** A bullet that wraps costs a line and is the first

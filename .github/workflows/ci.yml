@@ -34,3 +34,23 @@ jobs:
           name: pdfs
           path: dist/*.pdf
           if-no-files-found: error
+
+  # Every `make TAG=<tag>` variant passes the same checks. A separate job, so
+  # the variants stay out of the `pdfs` artifact attached to the Release.
+  variants:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Ensure poppler-utils (pdftotext, pdfinfo)
+        run: command -v pdftotext pdfinfo || sudo apt-get install -y poppler-utils
+
+      - name: Build and check every tagged variant
+        run: |
+          fail=0
+          for tag in $(scripts/tags.sh --names); do
+            make check TAG="$tag" || fail=1
+          done
+          exit "$fail"
