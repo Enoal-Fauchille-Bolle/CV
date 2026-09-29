@@ -82,7 +82,9 @@ make TAG=rust            # dist/CV-Enoal-Fauchille-Bolle-{FR,EN}-rust.pdf
 make private TAG=rust    # same with photo + phone, ...-rust-private.pdf
 ```
 
-A variant keeps the `core` entries plus those tagged `TAG`; an unknown `TAG`
+A variant keeps the `core` entries plus those tagged `TAG`. It can also have its
+own title and summary under `headline.variants.<tag>` in `cv.yaml`; whatever it
+leaves out falls back to the default headline. An unknown `TAG`
 stops the build instead of silently producing a bare CV. `make TAG=extra`
 brings every entry back at once to review them; it is the only build allowed
 to take two pages, and is never sent.

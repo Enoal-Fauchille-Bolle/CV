@@ -88,6 +88,12 @@
   }
 }
 
+// A variant may override the headline title and/or summary under
+// headline.variants.<tag> in cv.yaml; whatever it leaves out keeps the default.
+#let headline = (
+  data.headline + data.headline.at("variants", default: (:)).at(variant, default: (:))
+)
+
 // ----------------------------------------------------------------------------
 // Document & page setup (ATS-friendly, PDF/UA compatible)
 // ----------------------------------------------------------------------------
@@ -169,7 +175,7 @@
   #v(-6pt)
   // The location sits on the title line: at the end of the contacts it wrapped
   // onto a line of its own once the photo narrowed the column.
-  #text(size: 12pt, fill: accent, weight: "medium")[#T(data.headline.title)]#text(size: 12pt, fill: rgb("#555555"))[ · #t(hd.location)]
+  #text(size: 12pt, fill: accent, weight: "medium")[#T(headline.title)]#text(size: 12pt, fill: rgb("#555555"))[ · #t(hd.location)]
   #v(2pt)
   #contact
 ]
@@ -188,7 +194,7 @@
 // ----------------------------------------------------------------------------
 // Profile / summary
 // ----------------------------------------------------------------------------
-#let summary = T(data.headline.summary)
+#let summary = T(headline.summary)
 #if summary != none {
   section(L.summary)
   summary
