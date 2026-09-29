@@ -33,12 +33,14 @@ Only Docker and `make` are needed — no local Typst install.
 
 ```bash
 make          # public PDFs (FR + EN, no photo) into dist/
+make check    # public PDFs + ATS checks (needs poppler-utils)
 make private  # local build with photo + phone (see "Private data")
+make image    # build the served nginx image locally
 make clean    # remove dist/
 ```
 
-A single `make` on a fresh clone produces `dist/cv-fr.pdf` and `dist/cv-en.pdf`:
-tagged PDF/UA-1 files with hyphenation off, so ATS keyword matching stays intact.
+A single `make` on a fresh clone produces `dist/CV-Enoal-Fauchille-Bolle-FR.pdf`
+and `dist/CV-Enoal-Fauchille-Bolle-EN.pdf`: tagged PDF/UA-1 files with hyphenation off, so ATS keyword matching stays intact.
 Generated PDFs live in `dist/` and are git-ignored.
 
 ---
@@ -107,18 +109,23 @@ same designer, so the look stays close.
 
 ## 📦 Deployment
 
-> **Transitional:** the image and the Release still ship the hand-made
-> `deploy/resume.pdf`. Switching them to the Typst-built PDF is tracked in
-> issues #16–#20.
-
 ### Run the image
 
 ```bash
 docker run -p 8080:80 ghcr.io/enoal-fauchille-bolle/cv:latest
 ```
 
-Then open [http://localhost:8080](http://localhost:8080) — the PDF is served
-directly. To build and run it locally instead:
+Then open [http://localhost:8080](http://localhost:8080). The image compiles
+the PDFs itself and serves them at:
+
+| URL | Serves |
+|---|---|
+| `/` | French version (any unknown path too, so old links keep working) |
+| `/en` | English version |
+| `/CV-Enoal-Fauchille-Bolle-FR.pdf`, `/CV-Enoal-Fauchille-Bolle-EN.pdf` | Each version by file name |
+
+To build and run it locally instead (the build context is the repository root,
+so the image can compile the PDFs):
 
 ```bash
 docker compose -f deploy/docker-compose.yml up --build
@@ -135,9 +142,12 @@ git push origin v2.4.0
 ```
 
 The CI then:
-1. Builds the Docker image from `deploy/`.
-2. Pushes it to GHCR with both the version tag and `latest`.
-3. Creates a GitHub Release with auto-generated notes and the PDF attached.
+1. Builds the PDFs and runs the ATS checks (`scripts/check-ats.sh`); a failing
+   check stops the release. The same checks run on every push and pull request.
+2. Builds the Docker image, which compiles the PDFs with the same pinned Typst.
+3. Pushes it to GHCR with both the version tag and `latest`.
+4. Creates a GitHub Release with auto-generated notes and the checked PDFs
+   (FR and EN, public versions) attached.
 
 ---
 
@@ -158,6 +168,7 @@ The CI then:
 ```
 .
 ├── .github/workflows/
+│   ├── ci.yml                 # ATS checks on every push and pull request
 │   └── docker-publish.yml     # CI/CD: image + Release on every tag
 ├── src/                       # everything the PDF is built from
 │   ├── cv.typ                 # Typst template
@@ -165,10 +176,12 @@ The CI then:
 │   ├── private.example.yaml   # template for the git-ignored private.yaml
 │   └── fonts/                 # Dosis + Hanken Grotesk (OFL)
 ├── deploy/                    # everything the served image is built from
-│   ├── Dockerfile             # Nginx Alpine image
-│   ├── nginx.conf             # serves the PDF at /
-│   ├── docker-compose.yml     # local run
-│   └── resume.pdf             # hand-made PDF, until issues #16–#20
+│   ├── Dockerfile             # Typst stage compiles the PDFs, Nginx Alpine serves them
+│   ├── Dockerfile.dockerignore # allowlist: keeps private files out of the image
+│   ├── nginx.conf             # /, /en and the PDFs by name
+│   └── docker-compose.yml     # local run
+├── scripts/
+│   └── check-ats.sh           # ATS checks on the generated PDFs
 ├── Makefile                   # reproducible PDF build into dist/
 ├── CONTRIBUTING.md            # editing rules (one page, commits…)
 └── LICENSE
