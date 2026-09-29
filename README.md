@@ -94,6 +94,23 @@ stops the build instead of silently producing a bare CV. `make TAG=extra`
 brings every entry back at once to review them; it is the only build allowed
 to take two pages, and is never sent.
 
+### Tailoring to an offer (under 15 minutes)
+
+1. **Pick the closest tag.** Run `make tags` and match the offer's main topic:
+   `devops` for platform/DevOps, `backend` for API work, `rust`, `network`,
+   `systems`, `typescript`. No tag at all (`make`) is the full-stack CV.
+2. **Adjust the headline if needed.** Edit `headline.variants.<tag>` in
+   `src/cv.yaml` to echo the offer's wording, using only skills the CV backs
+   up. Change the default headline only if every offer should see it.
+3. **Build and check.** `make check TAG=<tag>` must print only `ok` lines; it
+   catches a second page, a phone number or French left in the English PDF.
+4. **Send the private PDF.** `make private TAG=<tag>` adds the photo and phone:
+   `dist/CV-Enoal-Fauchille-Bolle-{FR,EN}-<tag>-private.pdf`. Its bottom line
+   names the version it was built from, to find it again later.
+
+When no tag fits, add one to the relevant entries (one to three topic tags per
+entry, see [CONTRIBUTING.md](./CONTRIBUTING.md)) and give it a headline.
+
 ---
 
 ## 🔒 Private data
