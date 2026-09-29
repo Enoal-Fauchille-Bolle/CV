@@ -1,0 +1,36 @@
+name: CI
+
+# Builds the public PDFs and runs the ATS checks. Also called by
+# docker-publish.yml, so a release only ships PDFs that passed them.
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      # Already on ubuntu-latest; the fallback covers a runner image without it.
+      - name: Ensure poppler-utils (pdftotext, pdfinfo)
+        run: command -v pdftotext pdfinfo || sudo apt-get install -y poppler-utils
+
+      # Builds dist/*.pdf with --pdf-standard ua-1 (a failure stops here),
+      # then runs scripts/check-ats.sh (a failing check fails the workflow).
+      - name: Build the PDFs and run the ATS checks
+        run: make check
+
+      - name: Keep the checked PDFs
+        uses: actions/upload-artifact@v7
+        with:
+          name: pdfs
+          path: dist/*.pdf
+          if-no-files-found: error

@@ -5,6 +5,7 @@
 #   make            # public PDFs (FR + EN, no photo) into dist/
 #   make private    # local build with photo + phone
 #                   # (needs src/photo.jpg + src/private.yaml)
+#   make check      # ATS checks on the public PDFs (needs poppler-utils)
 #   make image      # build the served nginx image locally (tag: cv)
 #   make clean      # remove dist/
 #
@@ -24,7 +25,7 @@ DIST    := dist
 # Docker image all use them (deploy/nginx.conf, deploy/Dockerfile).
 NAME    := CV-Enoal-Fauchille-Bolle
 
-.PHONY: all public private image typst-version clean
+.PHONY: all public private check image typst-version clean
 
 all: public
 
@@ -37,6 +38,9 @@ public: | $(DIST)
 private: | $(DIST)
 	$(COMPILE) --input lang=fr --input photo=true --input private=true $(SRC) $(DIST)/$(NAME)-FR-private.pdf
 	$(COMPILE) --input lang=en --input photo=true --input private=true $(SRC) $(DIST)/$(NAME)-EN-private.pdf
+
+check: public
+	scripts/check-ats.sh $(DIST)/$(NAME)-FR.pdf $(DIST)/$(NAME)-EN.pdf
 
 # The build context is the repository root, so the Dockerfile can compile the
 # PDFs itself; deploy/Dockerfile.dockerignore keeps private files out of it.
