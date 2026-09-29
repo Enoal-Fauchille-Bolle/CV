@@ -47,10 +47,21 @@ jobs:
       - name: Ensure poppler-utils (pdftotext, pdfinfo)
         run: command -v pdftotext pdfinfo || sudo apt-get install -y poppler-utils
 
-      - name: Build and check every tagged variant
+      # The real phone and photo never reach the CI. Stand-ins of the same shape
+      # still exercise the tightest layout: two-line header, photo column.
+      # Typst reads photo.jpg as a JPEG from its extension, hence ImageMagick.
+      - name: Stand in for the git-ignored private files
+        run: |
+          command -v convert || sudo apt-get install -y imagemagick
+          cp src/private.example.yaml src/private.yaml
+          convert -size 64x64 xc:gray src/photo.jpg
+
+      - name: Build and check every variant, public and private
         run: |
           fail=0
-          for tag in $(scripts/tags.sh --names); do
+          for tag in "" $(scripts/tags.sh --names); do
             make check TAG="$tag" || fail=1
+            make private TAG="$tag" || fail=1
           done
+          scripts/check-ats.sh dist/*-private.pdf || fail=1
           exit "$fail"

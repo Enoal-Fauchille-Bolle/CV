@@ -170,7 +170,9 @@ The CI then:
 1. Builds the PDFs and runs the checks (`scripts/check-ats.sh`): ATS-readable
    text, one page, no phone number in public PDFs, no French in English ones.
    A failing check stops the release. The same checks run on every push and
-   pull request, on the default build and on every `TAG` variant.
+   pull request, on the default build and on every `TAG` variant, public and
+   private (with a stand-in phone number and photo, so the real ones never
+   reach the CI).
 2. Builds the Docker image, which compiles the PDFs with the same pinned Typst.
 3. Pushes it to GHCR with both the version tag and `latest`.
 4. Creates a GitHub Release with auto-generated notes and the checked PDFs
