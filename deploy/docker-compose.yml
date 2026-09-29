@@ -1,7 +1,9 @@
 services:
   cv-pdf:
     container_name: cv-pdf
-    build: .
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
     ports:
       - "80:80"
     restart: unless-stopped

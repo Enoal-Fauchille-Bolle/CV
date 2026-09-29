@@ -5,32 +5,47 @@
 #   make            # public PDFs (FR + EN, no photo) into dist/
 #   make private    # local build with photo + phone
 #                   # (needs src/photo.jpg + src/private.yaml)
+#   make image      # build the served nginx image locally (tag: cv)
 #   make clean      # remove dist/
 #
-# The template imports no Typst packages, so the image tag below pins every
-# version the build depends on.
+# The template imports no Typst packages, so the version below pins everything
+# the build depends on. deploy/Dockerfile and the CI take it from here
+# (`make typst-version`), so it is written in one place only.
 
-IMAGE   := ghcr.io/typst/typst:0.15.1
+TYPST_VERSION := 0.15.1
+IMAGE   := ghcr.io/typst/typst:$(TYPST_VERSION)
 RUN     := docker run --rm --user $(shell id -u):$(shell id -g) \
              -v "$(CURDIR)":/w -w /w $(IMAGE)
 # --pdf-standard ua-1 emits a tagged, accessible PDF (better ATS parsing).
 COMPILE := $(RUN) compile --font-path src/fonts --pdf-standard ua-1
 SRC     := src/cv.typ
 DIST    := dist
+# The file names are the ones recruiters see: the Release, the site and the
+# Docker image all use them (deploy/nginx.conf, deploy/Dockerfile).
+NAME    := CV-Enoal-Fauchille-Bolle
 
-.PHONY: all public private clean
+.PHONY: all public private image typst-version clean
 
 all: public
 
 public: | $(DIST)
-	$(COMPILE) --input lang=fr --input photo=false $(SRC) $(DIST)/cv-fr.pdf
-	$(COMPILE) --input lang=en --input photo=false $(SRC) $(DIST)/cv-en.pdf
+	$(COMPILE) --input lang=fr --input photo=false $(SRC) $(DIST)/$(NAME)-FR.pdf
+	$(COMPILE) --input lang=en --input photo=false $(SRC) $(DIST)/$(NAME)-EN.pdf
 
 # Requires src/photo.jpg and src/private.yaml (both git-ignored). Not part of
 # `make all` so that a fresh clone always builds the public PDFs in one command.
 private: | $(DIST)
-	$(COMPILE) --input lang=fr --input photo=true --input private=true $(SRC) $(DIST)/cv-fr-private.pdf
-	$(COMPILE) --input lang=en --input photo=true --input private=true $(SRC) $(DIST)/cv-en-private.pdf
+	$(COMPILE) --input lang=fr --input photo=true --input private=true $(SRC) $(DIST)/$(NAME)-FR-private.pdf
+	$(COMPILE) --input lang=en --input photo=true --input private=true $(SRC) $(DIST)/$(NAME)-EN-private.pdf
+
+# The build context is the repository root, so the Dockerfile can compile the
+# PDFs itself; deploy/Dockerfile.dockerignore keeps private files out of it.
+image:
+	docker build --build-arg TYPST_VERSION=$(TYPST_VERSION) --build-arg NAME=$(NAME) \
+	  -f deploy/Dockerfile -t cv .
+
+typst-version:
+	@echo $(TYPST_VERSION)
 
 $(DIST):
 	mkdir -p $(DIST)

@@ -1,8 +1,0 @@
-# The build context is deploy/: only nginx.conf and resume.pdf go into the image.
-Dockerfile
-.dockerignore
-docker-compose.yml
-
-# OS generated files
-.DS_Store
-Thumbs.db

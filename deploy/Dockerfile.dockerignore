@@ -1,0 +1,8 @@
+# Allowlist: the build context is the repository root, and src/ holds the
+# git-ignored private.yaml and photo.jpg, which must never enter an image.
+# Only what the Dockerfile copies is let through.
+*
+!src/cv.typ
+!src/cv.yaml
+!src/fonts
+!deploy/nginx.conf
