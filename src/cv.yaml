@@ -155,7 +155,7 @@ projects:
     start: "2025-05"
     end: "2025-06"
     tech: [C, C++, Python]
-    tags: [extra, systems, network, team]
+    tags: [extra, systems, team]
     bullets:
       - fr: "Développé le serveur en C d'un jeu de stratégie multijoueur en réseau : gestion des connexions clients, règles du jeu et protocole de communication"
         en: "Built the C server of a networked multiplayer strategy game: client connections, game rules and communication protocol"
@@ -167,7 +167,7 @@ projects:
     start: "2025-11"
     end: "2026-01"
     tech: [C++, SFML, UDP]
-    tags: [extra, systems, network, team]
+    tags: [extra, network, team]
     bullets:
       - fr: Spécifié et documenté le protocole UDP binaire d'un moteur de jeu multijoueur à architecture ECS
         en: "Specified and documented the binary UDP protocol of a multiplayer game engine built on an ECS architecture"
