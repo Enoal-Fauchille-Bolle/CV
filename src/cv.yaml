@@ -45,7 +45,7 @@ experience:
     start: "2026-04"
     end: "2026-07"
     tech: [TypeScript, React, NestJS, PostgreSQL, Python, VoltAgent, S3]
-    tags: [core, web, backend, typescript, ai]
+    tags: [core, web, backend, typescript]
     bullets:
       - fr: Livré 70 merge requests en 4 mois sur un assistant IA de cybersécurité multi-agents (serveurs MCP, RAG)
         en: "Shipped 70 merge requests in 4 months on a multi-agent AI cybersecurity assistant (MCP servers, RAG)"
@@ -79,7 +79,7 @@ experience:
     start: "2024-07"
     end: "2024-12"
     tech: [Xano, WeWeb, JavaScript]
-    tags: [core, web, nocode]
+    tags: [core, web]
     bullets:
       - fr: Livré 111 tâches en 5 mois, dont 92 % sur Jack, la plateforme no-code des garages Revolte et de leur réseau
         en: Delivered 111 tasks in 5 months, 92% of them on Jack, the no-code platform of Revolte's garages and their network
@@ -97,7 +97,7 @@ projects:
     start: "2026-01"
     end: null
     tech: [Proxmox VE, K3s, ArgoCD, Helm, Docker Compose, Traefik, Infisical, Restic, GitHub Actions]
-    tags: [core, devops, platform]
+    tags: [core, devops]
     bullets:
       - fr: Conçu et exploité un homelab de plus de 30 services, de Proxmox VE à un cluster K3s déployé en GitOps par ArgoCD
         en: "Designed and run a homelab of 30+ services, from Proxmox VE to a K3s cluster deployed with GitOps by ArgoCD"
@@ -111,7 +111,7 @@ projects:
     start: "2026-06"
     end: null
     tech: [Rust, Ratatui, Crossterm, GitHub Actions, crates.io]
-    tags: [extra, rust, devops, release]
+    tags: [extra, rust, devops]
     bullets:
       - fr: Développé en Rust un jeu incrémental en terminal, avec un workspace Cargo qui sépare les règles de l'interface
         en: "Built an incremental terminal game in Rust, with a Cargo workspace that keeps the game rules apart from the UI"
@@ -127,7 +127,7 @@ projects:
     start: "2025-09"
     end: "2025-11"
     tech: [TypeScript, NestJS, PostgreSQL, TypeORM, Docker, GitHub Actions]
-    tags: [backend, typescript, team]
+    tags: [backend, typescript]
     bullets:
       - fr: "Développé le serveur NestJS d'une plateforme façon Zapier : OAuth2, déclencheurs cron, webhook et polling"
         en: "Built the NestJS server of a Zapier-like platform: OAuth2, cron, webhook and polling triggers"
@@ -141,7 +141,7 @@ projects:
     start: "2026-02"
     end: null
     tech: [Rust, crossterm, CodeRabbit]
-    tags: [core, rust, team]
+    tags: [core, rust]
     bullets:
       - fr: Conçu la crate des événements clavier et souris d'un framework TUI réactif en Rust, typée et non bloquante
         en: "Designed the keyboard and mouse event crate of a reactive Rust TUI framework, strongly typed and non-blocking"
@@ -155,7 +155,7 @@ projects:
     start: "2025-05"
     end: "2025-06"
     tech: [C, C++, Python]
-    tags: [extra, systems, team]
+    tags: [extra, systems]
     bullets:
       - fr: "Développé le serveur en C d'un jeu de stratégie multijoueur en réseau : gestion des connexions clients, règles du jeu et protocole de communication"
         en: "Built the C server of a networked multiplayer strategy game: client connections, game rules and communication protocol"
@@ -167,7 +167,7 @@ projects:
     start: "2025-11"
     end: "2026-01"
     tech: [C++, SFML, UDP]
-    tags: [extra, network, team]
+    tags: [extra, network]
     bullets:
       - fr: Spécifié et documenté le protocole UDP binaire d'un moteur de jeu multijoueur à architecture ECS
         en: "Specified and documented the binary UDP protocol of a multiplayer game engine built on an ECS architecture"
@@ -212,7 +212,7 @@ skills:
   - id: infra
     group: {fr: Infra et outils, en: Infrastructure and tools}
     items: [Linux, Docker, Kubernetes (K3s), ArgoCD, Helm, Proxmox VE, GitHub Actions, Git, Scrum]
-    tags: [core, devops, platform]
+    tags: [core, devops]
 
 # English first and an explicit C2: Affinda swaps the levels otherwise (#29).
 languages:
@@ -236,7 +236,7 @@ volunteering:
     location: {fr: "Nantes, France", en: "Nantes, France"}
     start: "2025-10"
     end: "2025-10"
-    tags: [extra, community]
+    tags: [extra]
     bullets:
       - fr: Montage des stands et gestion des salles, 2 jours par édition, pour plus de 3 500 participants
         en: "Set up booths and managed rooms, 2 days per edition, for 3,500+ attendees"
@@ -247,7 +247,7 @@ volunteering:
     location: null
     start: "2022-06"
     end: "2022-06"
-    tags: [extra, community]
+    tags: [extra]
     bullets:
       - fr: Création et montage de vidéos éducatives sur le Green IT et la RSE pendant 2 semaines
         en: "Created and edited educational videos on Green IT and CSR over 2 weeks"
