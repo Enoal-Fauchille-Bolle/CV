@@ -19,6 +19,9 @@ with. These rules keep every edit consistent with decisions already made.
 
 - All content lives in `src/cv.yaml`; the template (`src/cv.typ`) holds no CV
   text apart from section labels.
+- Every new entry needs a unique `id` and its `tags`: `core` (always shown) or
+  `extra` (hidden by default), then one to three topic tags. Reuse the ones
+  `make tags` lists before inventing another.
 - Unfinished text is written `TODO(#<issue>)`: the template renders it in red
   italics, so a placeholder never ships unnoticed.
 - The phone number and the photo stay out of the repository (see README,

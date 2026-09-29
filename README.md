@@ -34,6 +34,8 @@ Only Docker and `make` are needed — no local Typst install.
 ```bash
 make          # public PDFs (FR + EN, no photo) into dist/
 make check    # public PDFs + ATS checks (needs poppler-utils)
+make tags     # list the tags usable for a per-offer variant
+make TAG=rust # one variant, e.g. for a Rust offer (see "Variants")
 make private  # local build with photo + phone (see "Private data")
 make image    # build the served nginx image locally
 make clean    # remove dist/
@@ -63,6 +65,25 @@ The template takes optional Typst `--input` flags:
 
 The `cv.yaml` schema is documented in its header comment: `{fr, en}` text,
 `"YYYY-MM"` dates, and an `id` plus `tags` on every entry for variant selection.
+
+### Variants
+
+A variant is a CV tailored to one offer. Every entry in `cv.yaml` carries tags:
+
+| Tag | Meaning |
+|---|---|
+| `core` | shown in every build |
+| `extra` | hidden from the default build, brought back by a variant sharing another of its tags |
+| anything else (`rust`, `devops`…) | a topic, usable as `TAG` |
+
+```bash
+make tags                # every tag, with the entries it brings back
+make TAG=rust            # dist/CV-Enoal-Fauchille-Bolle-{FR,EN}-rust.pdf
+make private TAG=rust    # same with photo + phone, ...-rust-private.pdf
+```
+
+A variant keeps the `core` entries plus those tagged `TAG`; an unknown `TAG`
+stops the build instead of silently producing a bare CV.
 
 ---
 
@@ -181,7 +202,8 @@ The CI then:
 │   ├── nginx.conf             # /, /en and the PDFs by name
 │   └── docker-compose.yml     # local run
 ├── scripts/
-│   └── check-ats.sh           # ATS checks on the generated PDFs
+│   ├── check-ats.sh           # ATS checks on the generated PDFs
+│   └── tags.sh                # tags used in cv.yaml (make tags)
 ├── Makefile                   # reproducible PDF build into dist/
 ├── CONTRIBUTING.md            # editing rules (one page, commits…)
 └── LICENSE
