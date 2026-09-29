@@ -113,10 +113,8 @@ projects:
     tech: [Rust, Ratatui, Crossterm, GitHub Actions, crates.io]
     tags: [extra, rust, devops]
     bullets:
-      - fr: Développé en Rust un jeu incrémental en terminal, avec un workspace Cargo qui sépare les règles de l'interface
-        en: "Built an incremental terminal game in Rust, with a Cargo workspace that keeps the game rules apart from the UI"
-      - fr: "Fiabilisé les sauvegardes : versionnées, migrées au chargement, écrites de façon atomique et signées par HMAC"
-        en: "Hardened player saves: versioned and migrated on load, written atomically and signed with HMAC"
+      - fr: Développé en Rust un jeu en terminal (workspace Cargo), aux sauvegardes versionnées, atomiques et signées HMAC
+        en: "Built a Rust terminal game (Cargo workspace) with versioned, migrated, atomically written, HMAC-signed saves"
       - fr: "Automatisé les releases : binaires Linux, Windows et macOS avec attestation de provenance, publiés sur crates.io"
         en: "Automated releases: Linux, Windows and macOS binaries with signed provenance attestations, published to crates.io"
 
