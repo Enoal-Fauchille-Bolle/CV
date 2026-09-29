@@ -25,6 +25,12 @@ treatment as software:
 - **GitOps deployment** — a **K3s homelab cluster** managed by ArgoCD pulls the
   image and updates the running container automatically.
 
+Up to v2, the PDF was designed in Canva and exported by hand into the image.
+v3 replaces it with the Typst build: Canva's two-column layout was misread by
+ATS parsers, its text layer carried an invisible U+FEFF character, and every
+change meant a manual re-export. The content now lives in one YAML file, and a single command
+rebuilds every language and variant.
+
 ---
 
 ## 🚀 Quick start
