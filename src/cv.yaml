@@ -157,8 +157,8 @@ projects:
     tech: [C, C++, Python]
     tags: [extra, systems, network, team]
     bullets:
-      - fr: Développé le serveur en C d'un jeu de stratégie multijoueur en réseau, 1er contributeur avec 382 commits sur 757
-        en: "Built the C server of a networked multiplayer strategy game, top contributor with 382 of 757 commits"
+      - fr: "Développé le serveur en C d'un jeu de stratégie multijoueur en réseau : gestion des connexions clients, règles du jeu et protocole de communication"
+        en: "Built the C server of a networked multiplayer strategy game: client connections, game rules and communication protocol"
 
   - id: r-type
     name: R-Type
