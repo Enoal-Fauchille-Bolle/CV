@@ -9,7 +9,13 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
+  checks:
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+
   build-and-push:
+    needs: checks
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -17,34 +23,49 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Set image name and version
+      - name: Set image name, version and Typst version
         run: |
-          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
           VERSION="${{ github.ref_name }}"
-          echo "VERSION=${VERSION#v}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION#v}" >> "$GITHUB_ENV"
+          echo "TYPST_VERSION=$(make -s typst-version)" >> "$GITHUB_ENV"
+
+      # The PDFs that passed the ATS checks, attached to the Release below.
+      - name: Download the checked PDFs
+        uses: actions/download-artifact@v8
+        with:
+          name: pdfs
+          path: dist
 
       - name: Log into registry ${{ env.REGISTRY }}
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      # The context is the repository root: the Dockerfile compiles the PDFs.
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
-          context: deploy
+          context: .
+          file: deploy/Dockerfile
+          build-args: TYPST_VERSION=${{ env.TYPST_VERSION }}
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           generate_release_notes: true
-          files: deploy/resume.pdf
+          files: dist/*.pdf
+          fail_on_unmatched_files: true
