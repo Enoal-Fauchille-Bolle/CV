@@ -6,6 +6,9 @@
 #   make private    # local build with photo + phone
 #                   # (needs src/photo.jpg + src/private.yaml)
 #   make check      # ATS checks on the public PDFs (needs poppler-utils)
+#   make tags       # list the tags usable as TAG, and what each brings back
+#   make TAG=rust   # one variant: `core` entries plus those tagged `rust`
+#                   # (also `make private TAG=rust`, `make check TAG=rust`)
 #   make image      # build the served nginx image locally (tag: cv)
 #   make clean      # remove dist/
 #
@@ -20,27 +23,42 @@ RUN     := docker run --rm --user $(shell id -u):$(shell id -g) \
 # --pdf-standard ua-1 emits a tagged, accessible PDF (better ATS parsing).
 COMPILE := $(RUN) compile --font-path src/fonts --pdf-standard ua-1
 SRC     := src/cv.typ
+# TAG picks a per-offer variant (see `make tags`); empty means the default build.
+# It becomes the `variant` input and a file-name suffix: ...-FR-rust.pdf.
+TAG     :=
+VARIANT := $(if $(TAG),$(TAG),full)
+SUFFIX  := $(if $(TAG),-$(TAG))
 DIST    := dist
 # The file names are the ones recruiters see: the Release, the site and the
 # Docker image all use them (deploy/nginx.conf, deploy/Dockerfile).
 NAME    := CV-Enoal-Fauchille-Bolle
 
-.PHONY: all public private check image typst-version clean
+# A typo like TAG=rsut would silently build a CV with `core` entries only.
+ifneq ($(TAG),)
+ifeq ($(filter $(TAG),$(shell scripts/tags.sh --names)),)
+$(error Unknown TAG '$(TAG)': run `make tags` to list the tags)
+endif
+endif
+
+.PHONY: all public private check tags image typst-version clean
 
 all: public
 
 public: | $(DIST)
-	$(COMPILE) --input lang=fr --input photo=false $(SRC) $(DIST)/$(NAME)-FR.pdf
-	$(COMPILE) --input lang=en --input photo=false $(SRC) $(DIST)/$(NAME)-EN.pdf
+	$(COMPILE) --input lang=fr --input photo=false --input variant=$(VARIANT) $(SRC) $(DIST)/$(NAME)-FR$(SUFFIX).pdf
+	$(COMPILE) --input lang=en --input photo=false --input variant=$(VARIANT) $(SRC) $(DIST)/$(NAME)-EN$(SUFFIX).pdf
 
 # Requires src/photo.jpg and src/private.yaml (both git-ignored). Not part of
 # `make all` so that a fresh clone always builds the public PDFs in one command.
 private: | $(DIST)
-	$(COMPILE) --input lang=fr --input photo=true --input private=true $(SRC) $(DIST)/$(NAME)-FR-private.pdf
-	$(COMPILE) --input lang=en --input photo=true --input private=true $(SRC) $(DIST)/$(NAME)-EN-private.pdf
+	$(COMPILE) --input lang=fr --input photo=true --input private=true --input variant=$(VARIANT) $(SRC) $(DIST)/$(NAME)-FR$(SUFFIX)-private.pdf
+	$(COMPILE) --input lang=en --input photo=true --input private=true --input variant=$(VARIANT) $(SRC) $(DIST)/$(NAME)-EN$(SUFFIX)-private.pdf
 
 check: public
-	scripts/check-ats.sh $(DIST)/$(NAME)-FR.pdf $(DIST)/$(NAME)-EN.pdf
+	scripts/check-ats.sh $(DIST)/$(NAME)-FR$(SUFFIX).pdf $(DIST)/$(NAME)-EN$(SUFFIX).pdf
+
+tags:
+	@scripts/tags.sh
 
 # The build context is the repository root, so the Dockerfile can compile the
 # PDFs itself; deploy/Dockerfile.dockerignore keeps private files out of it.
