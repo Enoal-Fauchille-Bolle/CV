@@ -55,10 +55,13 @@ jobs:
 
       # The real phone and photo never reach the CI. Stand-ins of the same shape
       # still exercise the tightest layout: two-line header, photo column.
-      # Typst reads photo.jpg as a JPEG from its extension, hence ImageMagick.
+      # Typst reads photo.jpg as a JPEG from its extension, hence ImageMagick,
+      # which the runner lacks: refresh the package index (stale otherwise, 404)
+      # and skip the recommended packages (ghostscript and the like).
       - name: Stand in for the git-ignored private files
         run: |
-          command -v convert || sudo apt-get install -y imagemagick
+          command -v convert || { sudo apt-get update -q &&
+            sudo apt-get install -y -q --no-install-recommends imagemagick; }
           cp src/private.example.yaml src/private.yaml
           convert -size 64x64 xc:gray src/photo.jpg
 
