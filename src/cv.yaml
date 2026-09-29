@@ -37,7 +37,7 @@ headline:
 
 experience:
   - id: askeal-2026
-    role: {fr: Stage — Développeur full-stack, en: Internship — Full-stack developer}
+    role: {fr: Développeur full-stack — Stage, en: Full-stack developer — Internship}
     org: Askeal
     url: https://askeal.com/
     location: {fr: "Montpellier, France", en: "Montpellier, France"}
@@ -55,7 +55,7 @@ experience:
         en: "Built the ingestion of contributions into the RAG: two-level crawler, daily re-crawl, S3 archiving"
 
   - id: revolte-2025
-    role: {fr: Stage à temps partiel — Développeur full-stack, en: Part-time internship — Full-stack developer}
+    role: {fr: Développeur full-stack — Stage à temps partiel, en: Full-stack developer — Part-time internship}
     org: Revolte E-garages
     url: https://revolte.club/
     location: {fr: "Carquefou, France", en: "Carquefou, France"}
@@ -71,7 +71,7 @@ experience:
         en: "Stabilized the viewer on the garages' Android tablets: no more out-of-memory crashes, sharp pinch-to-zoom"
 
   - id: revolte-2024
-    role: {fr: Stage — Développeur full-stack, en: Internship — Full-stack developer}
+    role: {fr: Développeur full-stack — Stage, en: Full-stack developer — Internship}
     org: Revolte E-garages
     url: https://revolte.club/
     location: {fr: "Carquefou, France", en: "Carquefou, France"}
@@ -189,7 +189,7 @@ education:
   - id: roskilde
     school: Roskilde University
     degree:
-      fr: Échange de 4e année — Master en informatique (Computer Science)
+      fr: Master's in Computer Science — échange de 4e année
       en: 4th-year exchange — Master's in Computer Science
     location: {fr: "Roskilde, Danemark", en: "Roskilde, Denmark"}
     start: "2026-09"
@@ -214,16 +214,15 @@ skills:
     items: [Linux, Docker, Kubernetes (K3s), ArgoCD, Helm, Proxmox VE, GitHub Actions, Git, Scrum]
     tags: [core, devops, platform]
 
+# English first and an explicit C2: Affinda swaps the levels otherwise (#29).
 languages:
-  - id: french
-    name: {fr: Français, en: French}
-    level: {fr: langue maternelle, en: native}
-    tags: [core]
   - id: english
     name: {fr: Anglais, en: English}
-    level:
-      fr: B2, année de master en anglais à Roskilde
-      en: B2, Master's year taught in English at Roskilde
+    level: {fr: B2, en: B2}
+    tags: [core]
+  - id: french
+    name: {fr: Français, en: French}
+    level: {fr: "langue maternelle, C2", en: "native, C2"}
     tags: [core]
 
 # Each entry: id, name, issuer, date, url, tags. None to show yet: the 840

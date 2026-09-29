@@ -157,9 +157,11 @@
   )
   if "phone" in priv { items.push(priv.phone) }
   items.push(link(hd.website)[#hd.website.replace("https://", "")])
-  items.push(link("https://github.com/" + hd.github)[github.com/#hd.github])
-  items.push(link("https://linkedin.com/in/" + hd.linkedin)[linkedin.com/in/#hd.linkedin])
-  items.join(text(fill: rgb("#999999"))[  ·  ])
+  // Full https:// URLs in the text: ATS parsers skip profiles without them (#29).
+  items.push(link("https://github.com/" + hd.github)[#("https://github.com/" + hd.github)])
+  items.push(link("https://linkedin.com/in/" + hd.linkedin)[#("https://linkedin.com/in/" + hd.linkedin)])
+  // Boxed items wrap between entries, never inside a URL.
+  items.map(box).join(text(fill: rgb("#999999"))[  ·  ])
 }
 
 #let identity = [
