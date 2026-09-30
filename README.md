@@ -212,7 +212,8 @@ The CI then:
 3. Pushes it to GHCR with the version tag, and `latest` too on a final
    version: a pre-release such as `v3.1.0-rc.1` never gets `latest`.
 4. Creates a GitHub Release with auto-generated notes and the checked PDFs
-   (FR and EN, public versions) attached.
+   (FR and EN, public versions) attached. A tag with a `-` is published as a
+   pre-release, without the Latest badge.
 
 ---
 
