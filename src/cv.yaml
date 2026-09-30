@@ -6,7 +6,7 @@
 #           (proper nouns, technologies, URLs) are plain strings.
 # Dates     `"YYYY-MM"`, always quoted. `end: null` means "ongoing".
 # Entries   Every list entry has a unique `id` and a `tags` list. Variants and
-#           per-offer builds select and order entries by `id` and `tags`.
+#           per-offer builds select entries by `id` and `tags`.
 # Tags      `core`: kept in every variant. `extra`: hidden from the default
 #           (`full`) build, shown again by a variant naming one of its tags.
 #           An entry with neither is visible by default and hidden by the
@@ -128,7 +128,7 @@ experience:
     bullets:
       - fr: Livré 111 tâches en 5 mois, dont 92 % sur Jack, la plateforme no-code des garages Revolte et de leur réseau
         en: Delivered 111 tasks in 5 months, 92% of them on Jack, the no-code platform of Revolte's garages and their network
-      - fr: Développé la gestion multi-garages, les interventions haute tension et les habilitations et attestations batterie
+      - fr: Développé la gestion multi-garages, les interventions haute tension, les habilitations et les attestations batterie
         en: "Built multi-garage management, high-voltage repair jobs, and battery staff qualifications and certificates"
       - fr: Pris en charge le processus d'intervention de bout en bout et corrigé des failles de sécurité et des lenteurs
         en: "Took end-to-end ownership of the repair job workflow and fixed security flaws and slow pages"
@@ -155,7 +155,7 @@ projects:
     role: {fr: Jeu en terminal — projet personnel, en: Terminal game — personal project}
     start: "2026-06"
     end: null
-    tech: [Rust, Ratatui, Crossterm, GitHub Actions, crates.io]
+    tech: [Rust, Ratatui, crossterm, GitHub Actions, crates.io]
     tags: [extra, rust, devops]
     bullets:
       - fr: Développé en Rust un jeu en terminal (workspace Cargo), aux sauvegardes versionnées, atomiques et signées HMAC
@@ -252,7 +252,7 @@ skills:
     tags: [core, backend]
   - id: infra
     group: {fr: Infra et outils, en: Infrastructure and tools}
-    items: [Linux, Docker, Kubernetes (K3s), ArgoCD, Helm, Proxmox VE, GitHub Actions, Git, Scrum]
+    items: [Linux, Docker, Kubernetes (K3s), ArgoCD, Helm, Proxmox VE, GitHub Actions, Git]
     tags: [core, devops]
 
 # English first and an explicit C2: Affinda swaps the levels otherwise (#29).
