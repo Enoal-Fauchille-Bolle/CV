@@ -20,6 +20,7 @@ filter_commits = true
 # still one block. The tag being released is given with `--tag`.
 tag_pattern = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 commit_parsers = [
+  { message = "^fix\\(ci\\)", skip = true },
   { message = "^feat", group = "Features" },
   { message = "^fix", group = "Bug fixes" },
   { message = ".*", skip = true },
