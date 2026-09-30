@@ -63,10 +63,13 @@ jobs:
           cp src/private.example.yaml src/private.yaml
           convert -size 64x64 xc:gray src/photo.jpg
 
+      # The default public version is checked by `build-and-check`, and `core`
+      # alone is never sent: only the default private version is added here.
       - name: Build and check every variant, public and private
         run: |
           fail=0
-          for tag in "" $(scripts/tags.sh --names); do
+          make private || fail=1
+          for tag in $(scripts/tags.sh --names | grep -vx core); do
             make check TAG="$tag" || fail=1
             make private TAG="$tag" || fail=1
           done
