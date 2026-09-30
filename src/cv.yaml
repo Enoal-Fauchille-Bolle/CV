@@ -160,8 +160,8 @@ projects:
     bullets:
       - fr: Développé en Rust un jeu en terminal (workspace Cargo), aux sauvegardes versionnées, atomiques et signées HMAC
         en: "Built a Rust terminal game (Cargo workspace) with versioned, migrated, atomically written, HMAC-signed saves"
-      - fr: "Automatisé les releases : binaires Linux, Windows et macOS avec attestation de provenance, publiés sur crates.io"
-        en: "Automated releases: Linux, Windows and macOS binaries with signed provenance attestations, published to crates.io"
+      - fr: "Automatisé les releases : binaires Linux, Windows, macOS avec attestation de provenance, crate sur crates.io"
+        en: "Automated releases: Linux, Windows and macOS binaries with signed provenance attestations, crate on crates.io"
 
   - id: area
     name: AREA
