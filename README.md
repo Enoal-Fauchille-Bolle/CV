@@ -202,7 +202,8 @@ git push origin v3.1.0
 
 The CI then:
 1. Builds the PDFs and runs the checks (`scripts/check-ats.sh`): ATS-readable
-   text, one page, no phone number in public PDFs, no French in English ones.
+   text, one page, one line per bullet, no `TODO`, no phone number in public
+   PDFs, no French in English ones.
    A failing check stops the release. The same checks run on every push and
    pull request, on the default build and on every `TAG` variant, public and
    private (with a stand-in phone number and photo, so the real ones never
