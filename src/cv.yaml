@@ -36,8 +36,8 @@ headline:
     fr: Développeur full-stack orienté back-end
     en: Back-end-leaning full-stack developer
   summary:
-    fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Trois stages full-stack en TypeScript (React, NestJS) et un homelab Kubernetes géré en GitOps. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
-    en: "4th-year Epitech student on exchange at Roskilde University. Three full-stack internships in TypeScript (React, NestJS) and a Kubernetes homelab run with GitOps. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
+    fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Trois stages full-stack, dont deux en TypeScript (React, NestJS), et un homelab Kubernetes géré en GitOps. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
+    en: "4th-year Epitech student on exchange at Roskilde University. Three full-stack internships, two of them in TypeScript (React, NestJS), and a Kubernetes homelab run with GitOps. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
   # `make TAG=<tag>` uses these instead; a missing title or summary keeps the one above.
   variants:
     backend:
@@ -45,36 +45,36 @@ headline:
         fr: Développeur back-end — API et bases de données
         en: Back-end developer — APIs and databases
       summary:
-        fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Après trois stages full-stack en TypeScript, je me concentre sur le back-end : API NestJS, PostgreSQL, OAuth2 et webhooks. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
-        en: "4th-year Epitech student on exchange at Roskilde University. After three full-stack internships in TypeScript, I focus on the back-end: NestJS APIs, PostgreSQL, OAuth2 and webhooks. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
+        fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Après trois stages full-stack, dont deux en TypeScript,je me concentre sur le back-end : API NestJS, PostgreSQL, OAuth2 et webhooks. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
+        en: "4th-year Epitech student on exchange at Roskilde University. After three full-stack internships, two of them in TypeScript,I focus on the back-end: NestJS APIs, PostgreSQL, OAuth2 and webhooks. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
     devops:
       title:
         fr: Développeur back-end orienté plateforme et DevOps
         en: Back-end developer with a platform and DevOps focus
       summary:
-        fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Après trois stages full-stack en TypeScript, j'ai conçu un homelab de plus de 30 services, déployé en GitOps sur Kubernetes (K3s, ArgoCD). Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
-        en: "4th-year Epitech student on exchange at Roskilde University. After three full-stack internships in TypeScript, I built a homelab of 30+ services, deployed with GitOps on Kubernetes (K3s, ArgoCD). Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
+        fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Après trois stages full-stack, dont deux en TypeScript,j'ai conçu un homelab de plus de 30 services, déployé en GitOps sur Kubernetes (K3s, ArgoCD). Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
+        en: "4th-year Epitech student on exchange at Roskilde University. After three full-stack internships, two of them in TypeScript,I built a homelab of 30+ services, deployed with GitOps on Kubernetes (K3s, ArgoCD). Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
     network:
       title:
         fr: Développeur logiciel — réseau et back-end
         en: Software developer — networking and back-end
       summary:
-        fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Après trois stages full-stack en TypeScript, j'ai spécifié le protocole UDP binaire d'un moteur de jeu multijoueur en C++. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
-        en: "4th-year Epitech student on exchange at Roskilde University. After three full-stack internships in TypeScript, I specified the binary UDP protocol of a multiplayer game engine in C++. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
+        fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Après trois stages full-stack, dont deux en TypeScript,j'ai spécifié le protocole UDP binaire d'un moteur de jeu multijoueur en C++. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
+        en: "4th-year Epitech student on exchange at Roskilde University. After three full-stack internships, two of them in TypeScript,I specified the binary UDP protocol of a multiplayer game engine in C++. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
     rust:
       title:
         fr: Développeur Rust et back-end
         en: Rust and back-end developer
       summary:
-        fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Après trois stages full-stack en TypeScript, je maintiens un framework TUI en Rust et publie un jeu en terminal sur crates.io. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
-        en: "4th-year Epitech student on exchange at Roskilde University. After three full-stack internships in TypeScript, I maintain a Rust TUI framework and publish a terminal game on crates.io. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
+        fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Après trois stages full-stack, dont deux en TypeScript,je maintiens un framework TUI en Rust et publie un jeu en terminal sur crates.io. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
+        en: "4th-year Epitech student on exchange at Roskilde University. After three full-stack internships, two of them in TypeScript,I maintain a Rust TUI framework and publish a terminal game on crates.io. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
     systems:
       title:
         fr: Développeur logiciel — systèmes et back-end
         en: Software developer — systems and back-end
       summary:
-        fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Après trois stages full-stack en TypeScript, j'ai écrit le serveur en C d'un jeu en réseau et je maintiens un framework TUI en Rust. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
-        en: "4th-year Epitech student on exchange at Roskilde University. After three full-stack internships in TypeScript, I wrote the C server of a networked game and maintain a Rust TUI framework. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
+        fr: "Étudiant en 4e année à Epitech, en échange à Roskilde University. Après trois stages full-stack, dont deux en TypeScript,j'ai écrit le serveur en C d'un jeu en réseau et je maintiens un framework TUI en Rust. Je cherche un stage de fin d'études de septembre 2027 à août 2028 : temps partiel jusqu'en février, puis temps plein."
+        en: "4th-year Epitech student on exchange at Roskilde University. After three full-stack internships, two of them in TypeScript,I wrote the C server of a networked game and maintain a Rust TUI framework. Looking for a final-year internship from September 2027 to August 2028: part-time until February, then full-time."
     typescript:
       title:
         fr: Développeur full-stack TypeScript
