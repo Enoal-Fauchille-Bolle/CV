@@ -23,9 +23,13 @@ RUN     := docker run --rm --user $(shell id -u):$(shell id -g) \
 # Printed in the PDF footer: the tag on a release, e.g. v3.0.0, or the tag,
 # commit count and hash in between (v3.0.0-2-gabc1234), -dirty if uncommitted.
 VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null)
+# The PDF creation date is the last commit's, not the compile time, so two
+# builds of the same commit are identical. deploy/Dockerfile reads it as
+# SOURCE_DATE_EPOCH, which Typst honors.
+EPOCH   ?= $(shell git log -1 --format=%ct 2>/dev/null || echo 0)
 # --pdf-standard ua-1 emits a tagged, accessible PDF (better ATS parsing).
 COMPILE := $(RUN) compile --font-path src/fonts --pdf-standard ua-1 \
-             --input version=$(VERSION)
+             --creation-timestamp $(EPOCH) --input version=$(VERSION)
 SRC     := src/cv.typ
 # TAG picks a per-offer variant (see `make tags`); empty means the default build.
 # It becomes the `variant` input and a file-name suffix: ...-FR-rust.pdf.
@@ -68,7 +72,7 @@ tags:
 # PDFs itself; deploy/Dockerfile.dockerignore keeps private files out of it.
 image:
 	docker build --build-arg TYPST_VERSION=$(TYPST_VERSION) --build-arg NAME=$(NAME) \
-	  --build-arg VERSION=$(VERSION) \
+	  --build-arg VERSION=$(VERSION) --build-arg SOURCE_DATE_EPOCH=$(EPOCH) \
 	  -f deploy/Dockerfile -t cv .
 
 typst-version:

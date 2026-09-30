@@ -19,7 +19,8 @@ treatment as software:
 - **Content as data** — every entry lives in [`src/cv.yaml`](./src/cv.yaml), in
   French and English, tagged for per-offer variants.
 - **Reproducible build** — a [Typst](https://typst.app/) template renders it
-  through a pinned container, so the PDF is identical on any machine.
+  through a pinned container, with the creation date set to the last commit's,
+  so the PDF is identical on any machine.
 - **Release engineering** — an annotated Git tag builds a Docker image, pushes
   it to GHCR and creates a GitHub Release.
 - **GitOps deployment** — a **K3s homelab cluster** managed by ArgoCD pulls the

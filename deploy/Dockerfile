@@ -11,6 +11,9 @@ FROM ghcr.io/typst/typst:${TYPST_VERSION} AS build
 ARG NAME=CV-Enoal-Fauchille-Bolle
 # No .git in the build context: the Makefile and the CI pass `git describe`.
 ARG VERSION=
+# The PDF creation date (Typst reads this variable): the last commit's, from
+# the Makefile and the CI, so the image holds the same bytes as the Release.
+ARG SOURCE_DATE_EPOCH=0
 WORKDIR /w
 COPY src/cv.typ src/cv.yaml ./src/
 COPY src/fonts ./src/fonts
