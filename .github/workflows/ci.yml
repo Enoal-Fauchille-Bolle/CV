@@ -72,3 +72,18 @@ jobs:
           done
           scripts/check-ats.sh dist/*-private.pdf || fail=1
           exit "$fail"
+
+  # The Dockerfile is otherwise only built when a tag is pushed. Build it on
+  # every push, without publishing, so a broken image never waits for a release.
+  docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Full history and tags, so `git describe` can print the version.
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Build the Docker image (not pushed)
+        run: make image

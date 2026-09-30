@@ -25,12 +25,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Set image name, version, Typst version and PDF date
+      - name: Set image name, Typst version and PDF date
         run: |
           echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
           echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
-          VERSION="${{ github.ref_name }}"
-          echo "VERSION=${VERSION#v}" >> "$GITHUB_ENV"
           echo "TYPST_VERSION=$(make -s typst-version)" >> "$GITHUB_ENV"
 
       # The PDFs that passed the ATS checks, attached to the Release below.
@@ -50,6 +48,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
+      # `v3.1.0` gets `3.1.0` and `latest`; a pre-release such as `v3.1.0-rc.1`
+      # only gets `3.1.0-rc.1`, so it never reaches what ArgoCD pulls.
+      - name: Compute the image tags
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: type=semver,pattern={{version}}
+
       # The context is the repository root: the Dockerfile compiles the PDFs.
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
@@ -61,9 +68,7 @@ jobs:
             VERSION=${{ github.ref_name }}
             SOURCE_DATE_EPOCH=${{ env.SOURCE_DATE_EPOCH }}
           push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ steps.meta.outputs.tags }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
