@@ -24,7 +24,8 @@ with. These rules keep every edit consistent with decisions already made.
   text apart from section labels.
 - Every new entry needs a unique `id` and its `tags`: `core` (always shown) or
   `extra` (hidden by default), then one to three topic tags. Reuse the ones
-  `make tags` lists before inventing another.
+  `make tags` lists before inventing another. An entry with neither is shown
+  by default and hidden by the variants that do not name its tags.
 - Unfinished text is written `TODO(#<issue>)`: the template renders it in red
   italics, so a placeholder never ships unnoticed.
 - The phone number and the photo stay out of the repository (see README,

@@ -9,6 +9,8 @@
 #           per-offer builds select and order entries by `id` and `tags`.
 # Tags      `core`: kept in every variant. `extra`: hidden from the default
 #           (`full`) build, shown again by a variant naming one of its tags.
+#           An entry with neither is visible by default and hidden by the
+#           variants that do not name its tags. `TAG=extra` shows everything.
 # Bullets   `bullets` is a list of `{fr, en}` items, most important first.
 # Private   Phone number lives in the git-ignored `private.yaml`, loaded only
 #           with `--input private=true` (see README, "Private data").

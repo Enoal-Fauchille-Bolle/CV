@@ -87,6 +87,9 @@ A variant is a CV tailored to one offer. Every entry in `cv.yaml` carries tags:
 | `extra` | hidden from the default build, brought back by a variant sharing another of its tags |
 | anything else (`rust`, `devops`…) | a topic, usable as `TAG` |
 
+An entry with neither `core` nor `extra` is shown by default and hidden by the
+variants that do not name its tags.
+
 ```bash
 make tags                # every tag, with the entries it brings back
 make TAG=rust            # dist/CV-Enoal-Fauchille-Bolle-{FR,EN}-rust.pdf

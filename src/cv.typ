@@ -83,9 +83,12 @@
 //   variant == <tag>   -> keep "core" entries plus those carrying <tag>. An
 //                         "extra" entry carrying <tag> then reappears — that is
 //                         the point of per-offer selection.
+//   variant == "extra" -> keep everything, to review the whole file at once.
 #let keep(e) = {
   let tags = e.at("tags", default: ())
-  if variant == "full" {
+  if variant == "extra" {
+    true
+  } else if variant == "full" {
     "extra" not in tags
   } else {
     ("core" in tags) or (variant in tags)
