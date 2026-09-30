@@ -35,5 +35,5 @@ with. These rules keep every edit consistent with decisions already made.
 
 - [Conventional Commits](https://www.conventionalcommits.org/): `feat:`,
   `fix:`, `refactor:`, `docs:`, `chore:`, `build:`, with an optional scope such
-  as `fix(template):` or `fix(workflow):`.
+  as `fix(template):` or `fix(ci):`.
 - Add `Closes #<issue>` when a commit finishes a roadmap issue.
