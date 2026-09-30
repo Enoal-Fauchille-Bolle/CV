@@ -136,7 +136,7 @@ Two things stay off the public repo and are git-ignored:
 ```bash
 cp src/private.example.yaml src/private.yaml   # then fill in the real number
 # drop your photo.jpg into src/, then:
-make private                                   # dist/cv-*-private.pdf
+make private                                   # dist/CV-Enoal-Fauchille-Bolle-{FR,EN}-private.pdf
 ```
 
 The public build (`make`) never sets `private=true` or `photo=true`, so it reads
@@ -188,14 +188,16 @@ so the image can compile the PDFs):
 docker compose -f deploy/docker-compose.yml up --build
 ```
 
+Then open [http://localhost](http://localhost) (port 80).
+
 ### Release
 
 Pushing an **annotated Git tag** triggers the GitHub Actions pipeline:
 
 ```bash
-git tag -a v2.4.0 -m "Add new experience"
+git tag -a v3.1.0 -m "Add new experience"
 git push origin main
-git push origin v2.4.0
+git push origin v3.1.0
 ```
 
 The CI then:
