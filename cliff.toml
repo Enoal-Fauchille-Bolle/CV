@@ -1,0 +1,26 @@
+# git-cliff builds the body of each GitHub Release from the Conventional
+# Commits (see CONTRIBUTING.md). Only `feat` and `fix` are shown. The range
+# (previous final tag to the released tag) is given by docker-publish.yml.
+[changelog]
+body = """
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group }}
+{% for commit in commits %}
+- {{ commit.message | split(pat="\n") | first | upper_first }}
+{%- endfor %}
+{% endfor %}
+"""
+trim = true
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+filter_commits = true
+# Only final tags count as releases, so a range crossing `v3.1.0-rc.1` is
+# still one block. The tag being released is given with `--tag`.
+tag_pattern = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+commit_parsers = [
+  { message = "^feat", group = "Features" },
+  { message = "^fix", group = "Bug fixes" },
+  { message = ".*", skip = true },
+]

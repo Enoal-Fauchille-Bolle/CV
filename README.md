@@ -211,9 +211,10 @@ The CI then:
 2. Builds the Docker image, which compiles the PDFs with the same pinned Typst.
 3. Pushes it to GHCR with the version tag, and `latest` too on a final
    version: a pre-release such as `v3.1.0-rc.1` never gets `latest`.
-4. Creates a GitHub Release with auto-generated notes and the checked PDFs
-   (FR and EN, public versions) attached. A tag with a `-` is published as a
-   pre-release, without the Latest badge.
+4. Creates a GitHub Release with the checked PDFs (FR and EN, public versions)
+   attached. Its notes list the `feat` and `fix` commits since the previous
+   final version, built by [git-cliff](https://git-cliff.org) from `cliff.toml`.
+   A tag with a `-` is published as a pre-release, without the Latest badge.
 
 ---
 
