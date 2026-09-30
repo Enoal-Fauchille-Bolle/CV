@@ -12,11 +12,12 @@
 #   make image      # build the served nginx image locally (tag: cv)
 #   make clean      # remove dist/
 #
-# The template imports no Typst packages, so the version below pins everything
-# the build depends on. deploy/Dockerfile and the CI take it from here
-# (`make typst-version`), so it is written in one place only.
+# The template imports no Typst packages, so the Typst version pins everything
+# the build depends on. It is written in deploy/Dockerfile only (the default of
+# its TYPST_VERSION argument), and read from there: `make typst-version` prints
+# it for the CI.
 
-TYPST_VERSION := 0.15.1
+TYPST_VERSION := $(shell sed -n 's/^ARG TYPST_VERSION=//p' deploy/Dockerfile)
 IMAGE   := ghcr.io/typst/typst:$(TYPST_VERSION)
 RUN     := docker run --rm --user $(shell id -u):$(shell id -g) \
              -v "$(CURDIR)":/w -w /w $(IMAGE)

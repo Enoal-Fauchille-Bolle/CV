@@ -3,8 +3,8 @@
 # Stage 1 compiles the public PDFs (same flags as the Makefile), stage 2 only
 # serves them. Neither the Typst image nor the sources end up in the final image.
 
-# Default for a bare `docker build`; the Makefile and the CI pass the version
-# from the Makefile, the single place where it is pinned.
+# The Typst version, written here only: the Makefile and the CI read this line
+# (`make typst-version`), and a bare `docker build` or Compose uses it as is.
 ARG TYPST_VERSION=0.15.1
 
 FROM ghcr.io/typst/typst:${TYPST_VERSION} AS build
@@ -24,6 +24,6 @@ RUN mkdir dist \
         src/cv.typ "dist/${NAME}-$(echo $lang | tr a-z A-Z).pdf"; \
     done
 
-FROM nginx:alpine
+FROM nginx:1.31-alpine
 COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /w/dist/ /usr/share/nginx/html/
