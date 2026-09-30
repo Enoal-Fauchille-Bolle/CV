@@ -90,7 +90,7 @@ experience:
     start: "2026-04"
     end: "2026-07"
     tech: [TypeScript, React, NestJS, PostgreSQL, Python, VoltAgent, S3]
-    tags: [core, web, backend, typescript]
+    tags: [core, backend, typescript]
     bullets:
       - fr: Livré 70 merge requests en 4 mois sur un assistant IA de cybersécurité multi-agents (serveurs MCP, RAG)
         en: "Shipped 70 merge requests in 4 months on a multi-agent AI cybersecurity assistant (MCP servers, RAG)"
@@ -108,7 +108,7 @@ experience:
     start: "2025-09"
     end: "2026-02"
     tech: [TypeScript, React, NestJS, PostgreSQL, Docker, EmbedPDF, WebAssembly]
-    tags: [core, web, backend, typescript]
+    tags: [core, backend, typescript]
     bullets:
       - fr: Migré le lecteur de documentation technique vers EmbedPDF (WebAssembly), choisi après un comparatif sur tablettes
         en: "Migrated the technical documentation viewer to EmbedPDF (WebAssembly), chosen after a comparison on tablets"
@@ -124,7 +124,7 @@ experience:
     start: "2024-07"
     end: "2024-12"
     tech: [Xano, WeWeb, JavaScript]
-    tags: [core, web]
+    tags: [core]
     bullets:
       - fr: Livré 111 tâches en 5 mois, dont 92 % sur Jack, la plateforme no-code des garages Revolte et de leur réseau
         en: Delivered 111 tasks in 5 months, 92% of them on Jack, the no-code platform of Revolte's garages and their network
@@ -249,7 +249,7 @@ skills:
   - id: backend-web
     group: {fr: Back-end et web, en: Back-end and web}
     items: [NestJS, Node.js, React, TypeORM, PostgreSQL, S3, OAuth2, REST, MCP, RAG]
-    tags: [core, backend, web]
+    tags: [core, backend]
   - id: infra
     group: {fr: Infra et outils, en: Infrastructure and tools}
     items: [Linux, Docker, Kubernetes (K3s), ArgoCD, Helm, Proxmox VE, GitHub Actions, Git, Scrum]
