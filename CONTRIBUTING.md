@@ -37,3 +37,14 @@ with. These rules keep every edit consistent with decisions already made.
   `fix:`, `refactor:`, `docs:`, `chore:`, `build:`, with an optional scope such
   as `fix(template):` or `fix(ci):`.
 - Add `Closes #<issue>` when a commit finishes a roadmap issue.
+- Only `feat:` and `fix:` reach the Release notes (see `cliff.toml`), so pick
+  the type for what a reader of the CV would notice.
+
+## Releases
+
+- Push a tag `vX.Y.Z`. The CI checks, builds and publishes it; the Release
+  notes are generated from the commits since the previous final version.
+- Test first with `vX.Y.Z-rc.N`: a tag with a `-` is a pre-release, never
+  `latest`.
+- For a big update, edit the Release on GitHub afterwards and write a short
+  summary above the generated list. Re-running the workflow replaces it.
