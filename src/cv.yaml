@@ -221,7 +221,6 @@ education:
     degree:
       fr: Programme Grande École — Expert en technologies de l'information, RNCP niveau 7
       en: Master's-level degree in information technology — RNCP level 7
-    location: {fr: "Nantes, France", en: "Nantes, France"}
     start: "2023-10"
     end: "2028-08"
     tags: [core]
@@ -232,7 +231,6 @@ education:
     degree:
       fr: Master's in Computer Science — échange de 4e année
       en: 4th-year exchange — Master's in Computer Science
-    location: {fr: "Roskilde, Danemark", en: "Roskilde, Denmark"}
     start: "2026-09"
     end: "2027-06"
     tags: [core]

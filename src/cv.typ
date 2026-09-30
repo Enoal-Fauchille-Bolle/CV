@@ -245,7 +245,7 @@
   for e in edu {
     entry(
       e.school, T(e.degree), date-range(e.start, e.end),
-      place: t(e.location), bullets: e.at("bullets", default: ()),
+      bullets: e.at("bullets", default: ()),
     )
   }
 }
