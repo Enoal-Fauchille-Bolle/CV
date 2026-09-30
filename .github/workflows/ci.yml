@@ -22,9 +22,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Already on ubuntu-latest; the fallback covers a runner image without it.
-      - name: Ensure poppler-utils (pdftotext, pdfinfo)
-        run: command -v pdftotext pdfinfo || sudo apt-get install -y poppler-utils
+      # Refresh the package index first: it goes stale on the runner image (404).
+      - name: Install poppler-utils (pdftotext, pdfinfo)
+        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends poppler-utils
 
       # Builds dist/*.pdf with --pdf-standard ua-1 (a failure stops here),
       # then runs scripts/check-ats.sh (a failing check fails the workflow).
@@ -50,18 +50,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Ensure poppler-utils (pdftotext, pdfinfo)
-        run: command -v pdftotext pdfinfo || sudo apt-get install -y poppler-utils
+      # ImageMagick is for the photo stand-in below. Refresh the package index
+      # (stale otherwise, 404) and skip the recommended packages (ghostscript...).
+      - name: Install poppler-utils and ImageMagick
+        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends poppler-utils imagemagick
 
       # The real phone and photo never reach the CI. Stand-ins of the same shape
       # still exercise the tightest layout: two-line header, photo column.
-      # Typst reads photo.jpg as a JPEG from its extension, hence ImageMagick,
-      # which the runner lacks: refresh the package index (stale otherwise, 404)
-      # and skip the recommended packages (ghostscript and the like).
+      # Typst reads photo.jpg as a JPEG from its extension, hence ImageMagick.
       - name: Stand in for the git-ignored private files
         run: |
-          command -v convert || { sudo apt-get update -q &&
-            sudo apt-get install -y -q --no-install-recommends imagemagick; }
           cp src/private.example.yaml src/private.yaml
           convert -size 64x64 xc:gray src/photo.jpg
 
