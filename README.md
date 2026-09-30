@@ -209,7 +209,8 @@ The CI then:
    private (with a stand-in phone number and photo, so the real ones never
    reach the CI).
 2. Builds the Docker image, which compiles the PDFs with the same pinned Typst.
-3. Pushes it to GHCR with both the version tag and `latest`.
+3. Pushes it to GHCR with the version tag, and `latest` too on a final
+   version: a pre-release such as `v3.1.0-rc.1` never gets `latest`.
 4. Creates a GitHub Release with auto-generated notes and the checked PDFs
    (FR and EN, public versions) attached.
 
