@@ -1,29 +1,29 @@
-# 📄 CV
+# CV
 
 [![Build & Release](https://github.com/Enoal-Fauchille-Bolle/CV/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Enoal-Fauchille-Bolle/CV/actions/workflows/docker-publish.yml)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Enoal-Fauchille-Bolle/CV)](https://github.com/Enoal-Fauchille-Bolle/CV/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-> My résumé as code: written in YAML, typeset with Typst, containerized and
-> served over Nginx, versioned and published to GHCR on every release.
+A résumé as code: written in YAML, typeset with Typst, containerized and
+served over Nginx, versioned and published to GHCR on every release.
 
 ---
 
-## 📖 About
+## About
 
 This repository exists as a **DevOps learning exercise** as much as a CV.
 
 Instead of editing a PDF by hand and re-uploading it, the résumé gets the same
 treatment as software:
 
-- **Content as data** — every entry lives in [`src/cv.yaml`](./src/cv.yaml), in
+- **Content as data**: every entry lives in [`src/cv.yaml`](./src/cv.yaml), in
   French and English, tagged for per-offer variants.
-- **Reproducible build** — a [Typst](https://typst.app/) template renders it
+- **Reproducible build**: a [Typst](https://typst.app/) template renders it
   through a pinned container, with the creation date set to the last commit's,
   so the PDF is identical on any machine.
-- **Release engineering** — an annotated Git tag builds a Docker image, pushes
+- **Release engineering**: an annotated Git tag builds a Docker image, pushes
   it to GHCR and creates a GitHub Release.
-- **GitOps deployment** — a **K3s homelab cluster** managed by ArgoCD pulls the
+- **GitOps deployment**: a **K3s homelab cluster** managed by ArgoCD pulls the
   image and updates the running container automatically.
 
 Up to v2, the PDF was designed in Canva and exported by hand into the image.
@@ -34,9 +34,9 @@ rebuilds every language and variant.
 
 ---
 
-## 🚀 Quick start
+## Quick start
 
-Only Docker and `make` are needed — no local Typst install.
+Only Docker and `make` are needed, with no local Typst install.
 
 ```bash
 make          # public PDFs (FR + EN, no photo) into dist/
@@ -54,7 +54,7 @@ Generated PDFs live in `dist/` and are git-ignored.
 
 ---
 
-## ⚙️ How it works
+## How it works
 
 ```
 src/cv.yaml ──▶ src/cv.typ ──▶ typst compile (pinned container) ──▶ dist/*.pdf
@@ -123,15 +123,15 @@ entry, see [CONTRIBUTING.md](./CONTRIBUTING.md)) and give it a headline.
 
 ---
 
-## 🔒 Private data
+## Private data
 
 The repository is public, so `src/cv.yaml` only holds what may be published:
 name, `contact@enoal.fr`, website, GitHub, LinkedIn and city. No driving licence.
 
 Two things stay off the public repo and are git-ignored:
 
-- **Phone** — lives in `src/private.yaml` (copy `src/private.example.yaml`).
-- **Photo** — lives in `src/photo.jpg`.
+- **Phone**: lives in `src/private.yaml` (copy `src/private.example.yaml`).
+- **Photo**: lives in `src/photo.jpg`.
 
 ```bash
 cp src/private.example.yaml src/private.yaml   # then fill in the real number
@@ -140,13 +140,13 @@ make private                                   # dist/CV-Enoal-Fauchille-Bolle-{
 ```
 
 The public build (`make`) never sets `private=true` or `photo=true`, so it reads
-neither file: no phone, no photo — safe for CI, the Release and enoal.fr. With
+neither file: no phone and no photo, which is safe for CI, the Release and enoal.fr. With
 `private=true` but no file, compilation fails instead of silently shipping a PDF
 without the number.
 
 ---
 
-## 🔤 Fonts
+## Fonts
 
 Fonts are committed under `src/fonts/` so builds are identical on any machine,
 and Typst loads them with `--font-path src/fonts` (wired into the `Makefile`):
@@ -156,7 +156,7 @@ and Typst loads them with `--font-path src/fonts` (wired into the `Makefile`):
 | Name & section headings | [Dosis](https://fonts.google.com/specimen/Dosis) | SIL Open Font License 1.1 |
 | Body text | [Hanken Grotesk](https://fonts.google.com/specimen/Hanken+Grotesk) | SIL Open Font License 1.1 |
 
-Both are OFL, which explicitly allows redistribution — committing them is legal
+Both are OFL, which allows redistribution, so committing them is legal
 and the build never falls back to a substitute font. The original Canva CV used
 *Nourd* (Hanken Design Co.), licensed for personal use only and not
 redistributable in a public repo; Hanken Grotesk is the free, OFL font by the
@@ -164,7 +164,7 @@ same designer, so the look stays close.
 
 ---
 
-## 📦 Deployment
+## Deployment
 
 ### Run the image
 
@@ -218,7 +218,7 @@ The CI then:
 
 ---
 
-## 🏗️ Stack
+## Stack
 
 | Layer | Technology |
 |---|---|
@@ -230,7 +230,7 @@ The CI then:
 
 ---
 
-## 📁 Project structure
+## Project structure
 
 ```
 .
@@ -257,6 +257,6 @@ The CI then:
 
 ---
 
-## 📝 License
+## License
 
 [MIT © Enoal Fauchille-Bolle](./LICENSE)
